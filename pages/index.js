@@ -9,14 +9,29 @@ import { config } from 'config'
 import include from 'underscore.string/include'
 import Bio from 'components/Bio'
 
+import '../scss/icon-font.scss';
+import '../scss/initialize.scss';
+import hequanImage2 from '../images/hequan2.png';
+
 class BlogIndex extends React.Component {
   render () {
     // Sort pages.
     const sortedPages = sortBy(this.props.route.pages, 'data.date')
     // Posts are those with md extension that are not 404 pages OR have a date (meaning they're a react component post).
-    const visiblePages = sortedPages.filter(page => (
-      get(page, 'file.ext') === 'md' && !include(page.path, '/404') || get(page, 'data.date')
-    ))
+    // const visiblePages = sortedPages.filter(page => (
+    //   get(page, 'file.ext') === 'md' && !include(page.path, '/404') || get(page, 'data.date')
+    // ))
+
+    const isolationPaths = ['/about/', '/archive/', '/404.html', '/'];
+
+    const visiblePages = sortedPages.filter(page => {
+      if (isolationPaths.indexOf(page.path) < 0 && page.data && page.data.title) {
+        return true;
+      } else {
+        return false;
+      }
+    })
+    // console.info("get:::",get(visiblePages[4], 'data.tags'), get);
     return (
       <div>
         <Helmet
@@ -35,9 +50,31 @@ class BlogIndex extends React.Component {
                     marginBottom: rhythm(1/4),
                 }}
               >
-                <Link style={{boxShadow: 'none'}} to={prefixLink(page.path)}>
+                <Link to={prefixLink(page.path)}>
                     {get(page, 'data.title', page.path)}
                 </Link>
+
+                <div className="pageMsg">
+                  <span>日期：{ get(page, 'data.date') }</span> |
+                  <span>分类：{ get(page, 'data.categories') }</span> |
+                  <span>标签：{ get(page, 'data.tags') }</span>
+                </div>
+
+                {get(page, 'data.cover') ?
+                (<div className="pagePic">
+                    <img
+                      src={hequanImage2}
+                      alt={get(page, 'data.title')}/>
+                </div>) : ""}
+
+                <div className="pageDesc">
+                  这是描述信息啦
+                </div>
+
+                <Link to={prefixLink(page.path)}>
+                    more >
+                </Link>
+
               </li>
           ))}
         </ul>

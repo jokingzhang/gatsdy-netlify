@@ -1,0 +1,39 @@
+.headerWrap {
+
+  border-bottom: 1px solid #ddd;
+  margin-bottom: 30px;
+
+  .headerTitle {
+    margin: 0;
+
+    a {
+      text-decoration: none;
+      box-shadow: none;
+      transition: color 0.5s;
+
+      &:hover {
+        color: #00d8ff;
+      }
+    }
+  }
+
+  .headerList {
+    display: flex;
+    margin-top: 20px;
+    margin-bottom: 20px;
+
+    li {
+      flex: 0 1 25%;
+      list-style: none;
+
+      a {
+        box-shadow: none;
+        transition: color 0.5s;
+
+        &:hover {
+          color: #00d8ff;
+        }
+      }
+    }
+  }
+}

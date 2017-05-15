@@ -5,23 +5,30 @@ based on dark.css by Ivan Sagalaev
 
 */
 
-.markdown pre {
-  display: block;
-  background: #3F3F3F;
-  color: #DCDCDC;
-  overflow-y: hidden;
+.markdown {
+  pre {
+    display: block;
+    background: #3F3F3F;
+    color: #DCDCDC;
+    overflow-y: hidden;
+
+    code {
+      background: none;
+      border: none;
+      border-radius: 3px;
+      display: inline-block;
+      overflow: inherit;
+      padding: 1.58333rem;
+      white-space: inherit;
+      word-wrap: normal;
+    }
+  }
+
+  h1 {
+    color: red;
+  }
 }
 
-.markdown pre code {
-  background: none;
-  border: none;
-  border-radius: 3px;
-  display: inline-block;
-  overflow: inherit;
-  padding: 1.58333rem;
-  white-space: inherit;
-  word-wrap: normal;
-}
 
 code {
   -moz-border-radius: 3px;

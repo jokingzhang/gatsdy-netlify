@@ -1,3 +1,5 @@
-blogTitle = "My Awesome Blog"
-authorName = "Kyle Mathews"
-linkPrefix = "/gatsby-starter-blog"
+blogTitle = "My Awesome Blog, My New Life !"
+authorName = "jokingZhang"
+authorDesc = "I wan't to be a Coder!"
+authorImage = "author.png"
+linkPrefix = "/jokingzhang"

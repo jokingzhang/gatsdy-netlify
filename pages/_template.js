@@ -4,61 +4,28 @@ import { Container } from 'react-responsive-grid'
 import { prefixLink } from 'gatsby-helpers'
 import { rhythm, scale } from 'utils/typography'
 import { config } from 'config'
+import Header from '../components/Header';
+import Sidebar from '../components/Sidebar';
 
 class Template extends React.Component {
+
+  constructor(props) {
+    super(props);
+    console.info(this.props);
+  }
+
+
   render () {
-    const { location, children } = this.props
-    let header
-    if (location.pathname === prefixLink('/')) {
-      header = (
-        <h1
-          style={{
-            ...scale(1.5),
-            marginBottom: rhythm(1.5),
-            marginTop: 0,
-          }}
-        >
-          <Link
-            style={{
-              boxShadow: 'none',
-              textDecoration: 'none',
-              color: 'inherit',
-            }}
-            to={prefixLink('/')}
-          >
-            {config.blogTitle}
-          </Link>
-        </h1>
-      )
-    } else {
-      header = (
-        <h3
-          style={{
-            fontFamily: 'Montserrat, sans-serif',
-            marginTop: 0,
-          }}
-        >
-          <Link
-            style={{
-              boxShadow: 'none',
-              textDecoration: 'none',
-              color: 'inherit',
-            }}
-            to={prefixLink('/')}
-          >
-            {config.blogTitle}
-          </Link>
-        </h3>
-      )
-    }
+    const { location, children } = this.props;
     return (
       <Container
         style={{
-          maxWidth: rhythm(24),
+          maxWidth: rhythm(40),
           padding: `${rhythm(1.5)} ${rhythm(3/4)}`,
         }}
       >
-        {header}
+        <Header data={config} />
+        <Sidebar data={config} />
         {children}
       </Container>
     )
