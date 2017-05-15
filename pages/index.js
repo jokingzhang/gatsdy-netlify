@@ -11,6 +11,7 @@ import Bio from 'components/Bio'
 
 import '../scss/icon-font.scss';
 import '../scss/initialize.scss';
+import '../scss/container.scss';
 import hequanImage2 from '../images/hequan2.png';
 
 class BlogIndex extends React.Component {
@@ -33,7 +34,7 @@ class BlogIndex extends React.Component {
     })
     // console.info("get:::",get(visiblePages[4], 'data.tags'), get);
     return (
-      <div>
+      <div className="landing-container">
         <Helmet
           title={config.blogTitle}
           meta={[

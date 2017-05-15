@@ -20,14 +20,12 @@ class Sidebar extends Component {
 
   constructor(props) {
     super(props);
-    console.info(this.props.data);
-    console.info(this.props.route);
   }
 
   render() {
     return (
       <div className="sidebar">
-        <SidebarProfile data={this.props.data} />
+        <SidebarProfile data={this.props.data} pages={this.props.pages} />
         <SidebarLabel data={this.props.data} />
         <SidebarLink data={this.props.data} />
       </div>

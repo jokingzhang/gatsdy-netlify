@@ -1,44 +1,80 @@
 import React, { Component, PropTypes } from 'react';
-import { prefixLink } from 'gatsby-helpers'
-import { Link } from 'react-router'
+import { prefixLink } from 'gatsby-helpers';
+import { Link } from 'react-router';
+import uniq from 'lodash/uniq';
+
+import './profile.scss';
 
 class Profile extends Component {
 
   static propTypes = {
-    data: PropTypes.object
+    data: PropTypes.object,
+    pages: PropTypes.array
   }
 
   static defaultProps = {
-    data: {}
+    data: {},
+    pages: []
   }
 
   constructor(props) {
     super(props);
+    console.info("profile");
     console.info(this.props.data);
+    console.info(this.props.pages);
   }
 
   render() {
+    const isolationPaths = ['/about/', '/archive/', '/404.html', '/'];
+    let blogCategories = [];
+    let blogTags = [];
+    const articals = this.props.pages.filter(page => {
+
+      if (page.data && page.data.categories && page.data.categories.length > 0) {
+        blogCategories = [...blogCategories, page.data.categories];
+      }
+
+      if (page.data && page.data.tags && page.data.tags.length > 0) {
+        blogTags = [...blogTags, page.data.tags];
+      }
+
+      if (isolationPaths.indexOf(page.path) < 0 && page.data && page.data.title) {
+        return true;
+      } else {
+        return false;
+      }
+    })
+
+    blogCategories = uniq(blogCategories[0]); blogCategories = blogCategories.length;
+    blogTags = uniq(blogTags[0]); blogTags = blogTags.length;
+    let blogPages = articals.length;
+
     const authorImage = require(`../../../images/${this.props.data.authorImage}`);
 
-    // console.info("authorImage==>", authorImage);
     return (
       <div className="profile">
-        <h1>个人信息</h1>
-        <img src={authorImage} alt={this.props.data.authorName}/>
-        <p>{this.props.data.authorName}</p>
-        <p>{this.props.data.authorDesc}</p>
+        <h1 className="profile-title">个人信息</h1>
+        <img className="profile-image" src={authorImage} alt={this.props.data.authorName}/>
+        <p className="profile-author-name">{this.props.data.authorName}</p>
+        <p className="profile-author-desc">{this.props.data.authorDesc}</p>
         <div className="profile-classify">
           <div className="classify-item">
-            <div className="classify-item-num">3</div>
-            <div className="classify-item-title">分类</div>
+            <div className="classify-item-num">{blogCategories}</div>
+            <Link to={prefixLink('/archive/')}>
+                分类
+            </Link>
           </div>
           <div className="classify-item">
-            <div className="classify-item-num">3</div>
-            <div className="classify-item-title">标签</div>
+            <div className="classify-item-num">{blogTags}</div>
+            <Link to={prefixLink('/archive/')}>
+                标签
+            </Link>
           </div>
           <div className="classify-item">
-            <div className="classify-item-num">3</div>
-            <div className="classify-item-title">文章</div>
+            <div className="classify-item-num">{blogPages}</div>
+            <Link to={prefixLink('/archive/')}>
+                文章
+            </Link>
           </div>
         </div>
         <div className="rrs">
