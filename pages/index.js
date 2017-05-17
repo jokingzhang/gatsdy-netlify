@@ -1,4 +1,5 @@
 import React from 'react'
+import $ from 'jquery'
 import { Link } from 'react-router'
 import sortBy from 'lodash/sortBy'
 import get from 'lodash/get'
@@ -12,7 +13,7 @@ import Bio from 'components/Bio'
 import '../scss/icon-font.scss';
 import '../scss/initialize.scss';
 import '../scss/container.scss';
-import hequanImage2 from '../images/hequan2.png';
+
 
 class BlogIndex extends React.Component {
   render () {
@@ -32,7 +33,7 @@ class BlogIndex extends React.Component {
         return false;
       }
     })
-    // console.info("get:::",get(visiblePages[4], 'data.tags'), get);
+    console.info("get:::",get(visiblePages[4], 'data.body'));
     return (
       <div className="landing-container">
         <Helmet
@@ -64,18 +65,18 @@ class BlogIndex extends React.Component {
                 {get(page, 'data.cover') ?
                 (<div className="pagePic">
                     <img
-                      src={hequanImage2}
+                      src={require(`../images/${page.data.cover}`)}
                       alt={get(page, 'data.title')}/>
                 </div>) : ""}
 
                 <div className="pageDesc">
-                  这是描述信息啦
+                  { $(get(page, 'data.body')).find('p').html() }
                 </div>
 
                 <Link to={prefixLink(page.path)}>
                     more >
                 </Link>
-
+                <hr/>
               </li>
           ))}
         </ul>

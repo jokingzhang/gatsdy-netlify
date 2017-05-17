@@ -11,3 +11,67 @@
   width: 60%;
   margin: 0 auto;
 }
+
+.archive-container {
+  width: 60%;
+  margin: 0 auto;
+
+  .selection-wrap {
+    .btn-wrap {
+      .title {
+        color: #007acc;
+        font-size: 18px;
+      }
+
+      .btn-group {
+        padding: 30px 50px;
+        border: 1px solid #00d8ff;
+
+        .btn {
+          width: 120px;
+          padding: 10px 20px;
+          margin-right: 10px;
+          margin-bottom: 10px;
+          display: inline-block;
+          text-align: center;
+          border: 1px solid #ddd;
+
+          &.default {
+            color: #000;
+            cursor: pointer;
+          }
+
+          &.disabled {
+            color: #ddd;
+            cursor: not-allowed;
+          }
+
+          &.active {
+            color: #00d8ff;
+            cursor: pointer;
+          }
+        }
+      }
+    }
+  }
+
+  .list-wrap {
+    margin-top: 50px;
+    a {
+      display: block;
+      box-shadow: none;
+
+      &:hover {
+        color: #00d8ff;
+      }
+    }
+
+    .show {
+      display: block;
+    }
+
+    .hide {
+      display: none;
+    }
+  }
+}

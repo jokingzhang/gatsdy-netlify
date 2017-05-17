@@ -26,8 +26,8 @@ class Sidebar extends Component {
     return (
       <div className="sidebar">
         <SidebarProfile data={this.props.data} pages={this.props.pages} />
-        <SidebarLabel data={this.props.data} />
-        <SidebarLink data={this.props.data} />
+        <SidebarLabel data={this.props.data} pages={this.props.pages} />
+        <SidebarLink/>
       </div>
     )
   }

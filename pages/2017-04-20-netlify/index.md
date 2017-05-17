@@ -5,11 +5,11 @@ layout: post
 readNext: "/hi-folks/"
 path: "/netlify/"
 tags:
-  - WebFont
-  - Typography
+  - t6
+  - t7
 categories:
-  - Web UI
-cover: "../images/hequan2.png"
+  - c3
+cover: "hequan2.png"
 ---
 
 This is how easy it is to start a new blog built with Gatsby and host it on Netlify.

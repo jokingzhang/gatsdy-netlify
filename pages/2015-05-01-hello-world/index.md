@@ -3,6 +3,11 @@ title: Hello World
 date: "2015-05-01T22:12:03.284Z"
 readNext: "/my-second-post/"
 path: "/hello-world/"
+tags:
+  - t1
+  - t2
+categories:
+  - c1
 ---
 
 This is my first post on my new fake blog! How exciting!
