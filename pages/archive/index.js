@@ -6,6 +6,8 @@ import sortBy from 'lodash/sortBy';
 import map from 'lodash/map';
 import get from 'lodash/get';
 import uniq from 'lodash/uniq';
+import intersectionWith from 'lodash/intersectionWith';
+import isEqual from 'lodash/isEqual';
 import '../../scss/container.scss';
 
 class Archive extends React.Component {
@@ -51,7 +53,17 @@ class Archive extends React.Component {
   }
 
   handelSelectALL () {
-
+    let _obj = JSON.parse(JSON.stringify(this.state));
+    _obj.blogCategories.forEach((item) => {
+      item.state = "default";
+    })
+    _obj.blogTags.forEach((item) => {
+      item.state = "default";
+    })
+    _obj.articals.forEach((item) => {
+      item.show = true;
+    })
+    this.setState(_obj);
   }
 
   handelSelectCategories (item, index) {
@@ -61,6 +73,9 @@ class Archive extends React.Component {
     let _state = 'default';
     let _obj = JSON.parse(JSON.stringify(this.state));
     let _text = _obj.blogCategories[index].text;
+    let _filterCategories = [];
+    let _filterTags = [];
+
     if (_obj.blogCategories[index].state === "default") {
       _state = "active";
     } else {
@@ -73,13 +88,65 @@ class Archive extends React.Component {
     })
     _obj.blogCategories[index].state = _state;
 
+    // set _filterCategories && _filterTags
+    let _articalTags = [];
+    if (_state === "active") {
+
+      _filterCategories = [_text];
+      _obj.articals.forEach((item) => {
+        if(get(item, 'data.categories').indexOf(_text) >= 0) {
+          let _itemTags = get(item, 'data.tags');
+          _articalTags = _articalTags.concat(_itemTags);
+        }
+      })
+      _articalTags = uniq(_articalTags);
+
+      _obj.blogTags.forEach((item) => {
+        if (item.state === "disabled") {
+          item.state = "default";
+        }
+        if (_articalTags && _articalTags.length > 0 && _articalTags.indexOf(item.text) < 0) {
+          item.state = "disabled";
+        }
+        if (item.state === "active") {
+          _filterTags.push(item.text);
+        }
+      })
+
+    } else {
+
+      _obj.blogTags.forEach((item) => {
+        if (item.state === "disabled") {
+          item.state = "default";
+        }
+        if (item.state === "active") {
+          _filterTags.push(item.text);
+        }
+      })
+    }
+
     _obj.articals.forEach((item) => {
-      if(get(item, 'data.categories').indexOf(_text) >= 0) {
+      let _flag = true;
+      if (_filterCategories && _filterCategories.length > 0) {
+        let presentCategories = intersectionWith(_filterCategories, get(item, 'data.categories'), isEqual);
+        if(!presentCategories || presentCategories.length == 0) {
+          _flag = false;
+        }
+      }
+      if (_filterTags && _filterTags.length > 0) {
+        let presentTags = intersectionWith(_filterTags, get(item, 'data.tags'), isEqual);
+        if(!presentTags || presentTags.length == 0) {
+          _flag = false;
+        }
+      }
+      if (_flag) {
         item.show = true;
       } else {
         item.show = false;
       }
     })
+
+
     console.info(_obj);
     this.setState(_obj);
   }
@@ -90,13 +157,76 @@ class Archive extends React.Component {
     }
     let _state = 'default';
     let _obj = JSON.parse(JSON.stringify(this.state));
+    let _text = _obj.blogTags[index].text;
+    let _filterCategories = [];
+    let _filterTags = [];
+
     if (_obj.blogTags[index].state === "default") {
       _state = "active";
     } else {
       _state = "default";
     }
 
-    _obj.blogTags[index].state = _state
+    _obj.blogTags[index].state = _state;
+
+    // set _filterCategories && _filterTags
+    let _articalCategories = [];
+    // debugger;
+
+    _filterTags = [];
+    _obj.blogTags.forEach((item) => {
+      if(item && item.state === "active") {
+        _filterTags.push(item.text);
+      }
+    })
+    _obj.articals.forEach((item) => {
+      let presentTags = intersectionWith(_filterTags, get(item, 'data.tags'), isEqual);
+      if(presentTags && presentTags.length > 0) {
+        let _itemCategories = get(item, 'data.categories');
+        _articalCategories = _articalCategories.concat(_itemCategories);
+      }
+    })
+    _articalCategories = uniq(_articalCategories);
+
+    _obj.blogCategories.forEach((item) => {
+      if (item.state === "disabled") {
+        item.state = "default";
+      }
+      if (_articalCategories && _articalCategories.length > 0 && _articalCategories.indexOf(item.text) < 0) {
+        item.state = "disabled";
+      }
+      if (item.state === "active") {
+        _filterCategories.push(item.text);
+      }
+    })
+
+    if (_filterCategories && _filterCategories.length > 1) {
+      console.error("_filterCategories.length should less than or equal to 1");
+    }
+
+    _obj.articals.forEach((item) => {
+      let _flag = true;
+      if (_filterCategories && _filterCategories.length > 0) {
+        let presentCategories = intersectionWith(_filterCategories, get(item, 'data.categories'), isEqual);
+        if(!presentCategories || presentCategories.length == 0) {
+          _flag = false;
+        }
+      }
+      if (_filterTags && _filterTags.length > 0) {
+        let presentTags = intersectionWith(_filterTags, get(item, 'data.tags'), isEqual);
+        if(!presentTags || presentTags.length == 0) {
+          _flag = false;
+        }
+      }
+      if (_flag) {
+        item.show = true;
+      } else {
+        item.show = false;
+      }
+    })
+
+
+    console.info(_obj);
     this.setState(_obj);
   }
 
@@ -109,7 +239,7 @@ class Archive extends React.Component {
           <div className="btn-wrap">
             <div className="title">Reset</div>
             <div className="btn-group">
-              <div className="btn" onClick={this.handelSelectALL}>ALL</div>
+              <div className="btn" onClick={() => this.handelSelectALL()}>ALL</div>
             </div>
           </div>
           <div className="btn-wrap">

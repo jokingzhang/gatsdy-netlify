@@ -28,11 +28,11 @@ class Profile extends Component {
     const articals = this.props.pages.filter(page => {
 
       if (page.data && page.data.categories && page.data.categories.length > 0) {
-        blogCategories = [...blogCategories, page.data.categories];
+        blogCategories = blogCategories.concat(page.data.categories);
       }
 
       if (page.data && page.data.tags && page.data.tags.length > 0) {
-        blogTags = [...blogTags, page.data.tags];
+        blogTags = blogTags.concat(page.data.tags);
       }
 
       if (isolationPaths.indexOf(page.path) < 0 && page.data && page.data.title) {
@@ -42,8 +42,8 @@ class Profile extends Component {
       }
     })
 
-    blogCategories = uniq(blogCategories[0]); blogCategories = blogCategories.length;
-    blogTags = uniq(blogTags[0]); blogTags = blogTags.length;
+    blogCategories = uniq(blogCategories); blogCategories = blogCategories.length;
+    blogTags = uniq(blogTags); blogTags = blogTags.length;
     let blogPages = articals.length;
 
     const authorImage = require(`../../../images/${this.props.data.authorImage}`);

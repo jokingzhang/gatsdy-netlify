@@ -27,7 +27,7 @@ class Label extends Component {
     const articals = this.props.pages.filter(page => {
 
       if (page.data && page.data.categories && page.data.categories.length > 0) {
-        blogCategories = [...blogCategories, page.data.categories];
+        blogCategories = blogCategories.concat(page.data.categories);
       }
 
       if (isolationPaths.indexOf(page.path) < 0 && page.data && page.data.title) {
@@ -38,7 +38,7 @@ class Label extends Component {
 
     })
 
-    blogCategories = uniq(blogCategories[0]);
+    blogCategories = uniq(blogCategories);
 
 
     return (
