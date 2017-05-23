@@ -1,54 +1,59 @@
 import React, { Component, PropTypes } from 'react';
-import { prefixLink } from 'gatsby-helpers'
-import { Link } from 'react-router'
+import { prefixLink } from 'gatsby-helpers';
+import { Link } from 'react-router';
+import { Layout, Menu } from 'antd';
+import 'antd/lib/layout/style';
+import 'antd/lib/menu/style';
+import './header.scss';
 
-import './header.scss'
+const { Header } = Layout;
 
-class Header extends Component {
-  static propTypes = {
-    data: PropTypes.object
-  }
+export default class componentHeader extends Component{
 
-  static defaultProps = {
-    data: {}
-  }
-
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
   }
 
   render() {
     return (
-      <div className="headerWrap">
-        <h1 className="headerTitle">
-          <Link
-                to={prefixLink('/')}>
-            {this.props.data.blogTitle}
-          </Link>
-        </h1>
-        <ul className="headerList">
-          <li>
+      <Header
+        id="header"
+        className="headerWrap"
+        theme="light">
+          <h1 className="headerTitle">
             <Link
               to={prefixLink('/')}>
-            首页
+              {this.props.data.blogTitle}
             </Link>
-          </li>
-          <li>
-            <Link
-              to={prefixLink('/about/')}>
-            关于
-            </Link>
-          </li>
-          <li>
-            <Link
-              to={prefixLink('/archive/')}>
-             归档
-            </Link>
-          </li>
-        </ul>
-      </div>
+          </h1>
+          <Menu
+            theme="light"
+            mode="horizontal"
+            defaultSelectedKeys={['2']}
+            className="headerMenu"
+          >
+            <Menu.Item key="1">
+              <Link
+                to={prefixLink('/')}>
+                首页
+              </Link>
+            </Menu.Item>
+            <Menu.Item key="2">
+              <Link
+                to={prefixLink('/about/')}>
+                关于
+              </Link>
+            </Menu.Item>
+            <Menu.Item key="3">
+              <Link
+                to={prefixLink('/archive/')}>
+                归档
+              </Link>
+            </Menu.Item>
+          </Menu>
+      </Header>
     )
   }
 }
 
-export default Header;
+

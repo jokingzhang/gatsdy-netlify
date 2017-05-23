@@ -2,7 +2,6 @@ import React from 'react'
 import { Link } from 'react-router'
 import { Container } from 'react-responsive-grid'
 import { prefixLink } from 'gatsby-helpers'
-import { rhythm, scale } from 'utils/typography'
 import { config } from 'config'
 import Header from '../components/Header';
 import Sidebar from '../components/Sidebar';
@@ -15,19 +14,14 @@ class Template extends React.Component {
     super(props);
   }
 
-
   render () {
     const { location, children, route} = this.props;
     return (
       <Container
-        className="blog-container"
-        style={{
-          maxWidth: rhythm(40),
-          padding: `${rhythm(1.5)} ${rhythm(3/4)}`,
-        }}>
+        className="blog-container">
         <Header data={config} />
-        <Sidebar data={config} pages={route.pages} />
-        {children}
+        <Sidebar data={config} pages={this.props.route.pages} />
+        {this.props.children}
       </Container>
     )
   }

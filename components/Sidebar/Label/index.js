@@ -5,17 +5,7 @@ import uniq from 'lodash/uniq';
 
 import './label.scss'
 
-class Label extends Component {
-
-  static propTypes = {
-    data: PropTypes.object,
-    pages: PropTypes.array
-  }
-
-  static defaultProps = {
-    data: {},
-    pages: []
-  }
+export default class Label extends Component {
 
   constructor(props) {
     super(props);
@@ -40,7 +30,6 @@ class Label extends Component {
 
     blogCategories = uniq(blogCategories);
 
-
     return (
       <div className="label">
         <div className="label-title">所有分类</div>
@@ -55,5 +44,3 @@ class Label extends Component {
     )
   }
 }
-
-export default Label;

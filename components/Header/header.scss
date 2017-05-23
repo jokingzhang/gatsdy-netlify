@@ -1,7 +1,9 @@
 .headerWrap {
 
   border-bottom: 1px solid #ddd;
-  margin-bottom: 30px;
+  margin-bottom: 60px;
+  height: 84px;
+  line-height: 74px;
 
   .headerTitle {
     margin: 0;
@@ -10,11 +12,16 @@
       text-decoration: none;
       box-shadow: none;
       transition: color 0.5s;
+      line-height: 70px;
 
       &:hover {
         color: #00d8ff;
       }
     }
+  }
+
+  .headerMenu {
+
   }
 
   .headerList {

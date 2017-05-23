@@ -5,7 +5,7 @@ import uniq from 'lodash/uniq';
 
 import './profile.scss';
 
-class Profile extends Component {
+export default class Profile extends Component {
 
   static propTypes = {
     data: PropTypes.object,
@@ -93,5 +93,3 @@ class Profile extends Component {
     )
   }
 }
-
-export default Profile;

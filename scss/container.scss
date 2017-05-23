@@ -1,16 +1,19 @@
 .blog-container {
   position: relative;
-  max-width: 70rem;
   margin-left: auto;
   margin-right: auto;
-  padding: 2.625rem 1.3125rem;
+
+  @media (min-width: 769px) {
+      width: 750px;
+  }
+  @media (min-width: 992px) {
+      width: 970px;
+  }
+  @media (min-width: 1200px) {
+      width: 1170px;
+  }
 }
 
-
-.landing-container {
-  width: 60%;
-  margin: 0 auto;
-}
 
 .archive-container {
   width: 60%;

@@ -23,8 +23,9 @@ class Post extends React.Component {
 export default Post
 
 exports.data = {
-  title: "A post written in Javascript!",
+  title: "A post written in Javascript!!!",
   date: "2016-12-09T12:40:32.169Z",
+  desc: "Word to the javascript yos",
   tags: ['t3', 't4', 't5'],
   categories: ['c3']
 }

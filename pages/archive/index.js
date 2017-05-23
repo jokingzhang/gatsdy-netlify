@@ -262,8 +262,8 @@ class Archive extends React.Component {
         </div>
 
         <div className="list-wrap">
-          {this.state.articals.map((page) => (
-            <Link className={page.show ? 'show' : 'hide'} to={prefixLink(page.path)}>
+          {this.state.articals.map((page, idx) => (
+            <Link key={idx} className={page.show ? 'show' : 'hide'} to={prefixLink(page.path)}>
               <span>日期：{ get(page, 'data.date') }</span> |
               <span>分类：{ get(page, 'data.categories') }</span> |
               <span>标签：{ get(page, 'data.tags') }</span> |

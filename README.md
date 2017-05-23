@@ -6,3 +6,8 @@ Install this starter (assuming Gatsby is installed) by running from your CLI:
 
 ## Running in development
 `gatsby develop`
+
+```
+gatsdy-netlify/node_modules/gatsby/dist/bin/cli.js
+修改port
+```

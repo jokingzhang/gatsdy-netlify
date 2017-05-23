@@ -1,0 +1,43 @@
+.landing-container {
+  width: 60%;
+  margin: 0 auto;
+
+  .landing-article-list {
+
+    .landing-article-item {
+
+      text-align: center;
+      padding: 0 20px;
+      margin-bottom: 30px;
+
+      .article-title {
+        display: block;
+        font-size: 28px;
+        text-align: center;
+        margin-bottom: 10px;
+      }
+
+      .article-msg {
+        font-size: 16px;
+        padding: 0 10px;
+        margin-bottom: 10px;
+        .msg-item {
+
+        }
+        .msg-sub-item {
+          padding: 0 5px;
+        }
+      }
+
+      .article-pic {
+        margin-bottom: 10px;
+      }
+
+      .article-desc {
+        text-align: left;
+        margin-bottom: 10px;
+        font-size: 14px;
+      }
+    }
+  }
+}

@@ -1,7 +1,7 @@
-import React from 'react'
+import React, { Component, PropTypes } from 'react';
 import '../../scss/container.scss';
 
-class About extends React.Component {
+export default class About extends Component {
   render () {
     return (
       <div className="landing-container">
@@ -23,8 +23,6 @@ class About extends React.Component {
     )
   }
 }
-
-export default About
 
 exports.data = {
   title: "About page",

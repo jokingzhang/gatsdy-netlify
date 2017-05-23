@@ -3,7 +3,7 @@ import { prefixLink } from 'gatsby-helpers'
 import { Link } from 'react-router'
 import './links.scss'
 
-class Links extends Component {
+export default class Links extends Component {
 
   render() {
     return (
@@ -20,5 +20,3 @@ class Links extends Component {
     )
   }
 }
-
-export default Links;

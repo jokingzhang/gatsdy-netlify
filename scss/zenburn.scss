@@ -29,6 +29,15 @@ based on dark.css by Ivan Sagalaev
   h1 {
     color: red;
   }
+
+  .artical-msg {
+    span {
+      padding: 10px;
+      &:first-child {
+        padding-left: 0px;
+      }
+    }
+  }
 }
 
 

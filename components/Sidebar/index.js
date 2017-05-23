@@ -10,14 +10,6 @@ import './sidebar.scss'
 
 class Sidebar extends Component {
 
-  static propTypes = {
-    data: PropTypes.object
-  }
-
-  static defaultProps = {
-    data: {}
-  }
-
   constructor(props) {
     super(props);
   }

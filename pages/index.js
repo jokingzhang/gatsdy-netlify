@@ -1,18 +1,20 @@
 import React from 'react'
 import $ from 'jquery'
+import moment from 'moment'
 import { Link } from 'react-router'
 import sortBy from 'lodash/sortBy'
 import get from 'lodash/get'
 import { prefixLink } from 'gatsby-helpers'
-import { rhythm } from 'utils/typography'
 import Helmet from "react-helmet"
 import { config } from 'config'
+import { Button } from 'antd';
 import include from 'underscore.string/include'
 import Bio from 'components/Bio'
-
+import 'antd/lib/button/style';
 import '../scss/icon-font.scss';
 import '../scss/initialize.scss';
 import '../scss/container.scss';
+import '../scss/landing.scss';
 
 
 class BlogIndex extends React.Component {
@@ -33,9 +35,9 @@ class BlogIndex extends React.Component {
         return false;
       }
     })
-    console.info("get:::",get(visiblePages[4], 'data.body'));
+    console.info("get:::",visiblePages[3],$(get(visiblePages[3], 'data.body')).html());
     return (
-      <div className="landing-container">
+      <div className="container landing-container">
         <Helmet
           title={config.blogTitle}
           meta={[
@@ -43,40 +45,37 @@ class BlogIndex extends React.Component {
             {"name": "keywords", "content": "blog, articles"},
           ]}
         />
-        <Bio />
-        <ul>
+        <ul className="landing-article-list">
           {visiblePages.map((page) => (
               <li
-                key={page.path}
-                style={{
-                    marginBottom: rhythm(1/4),
-                }}
-              >
-                <Link to={prefixLink(page.path)}>
+                className="landing-article-item"
+                key={page.path}>
+                <Link className="article-title" to={prefixLink(page.path)}>
                     {get(page, 'data.title', page.path)}
                 </Link>
 
-                <div className="pageMsg">
-                  <span>日期：{ get(page, 'data.date') }</span> |
-                  <span>分类：{ get(page, 'data.categories') }</span> |
-                  <span>标签：{ get(page, 'data.tags') }</span>
+                <div className="article-msg">
+                  <span className="msg-item">日期：{ moment(get(page, 'data.date')).format('MMMM D, YYYY') }</span> |
+                  <span className="msg-item">分类：{ page.data.categories.map((item, idx) => (<span className="msg-sub-item" key={idx}>{item}</span>)) }</span> |
+                  <span className="msg-item">标签：{ page.data.tags.map((item, idx) => (<span className="msg-sub-item" key={idx}>{item}</span>)) }</span>
                 </div>
 
                 {get(page, 'data.cover') ?
-                (<div className="pagePic">
+                (<div className="article-pic">
                     <img
                       src={require(`../images/${page.data.cover}`)}
                       alt={get(page, 'data.title')}/>
                 </div>) : ""}
 
-                <div className="pageDesc">
-                  { $(get(page, 'data.body')).find('p').html() }
+                <div className="article-desc">
+                  { $(get(page, 'data.body')).html() || get(page, 'data.desc')}
                 </div>
-
-                <Link to={prefixLink(page.path)}>
+                <Button>
+                  <Link className="icon" to={prefixLink(page.path)}>
                     more >
-                </Link>
-                <hr/>
+                  </Link>
+                </Button>
+
               </li>
           ))}
         </ul>
