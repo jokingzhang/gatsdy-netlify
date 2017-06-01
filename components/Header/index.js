@@ -29,9 +29,8 @@ export default class componentHeader extends Component{
           <Menu
             theme="light"
             mode="horizontal"
-            defaultSelectedKeys={['2']}
-            className="headerMenu"
-          >
+            defaultSelectedKeys={['1']}
+            className="headerMenu">
             <Menu.Item key="1">
               <Link
                 to={prefixLink('/')}>

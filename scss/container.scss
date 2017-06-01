@@ -79,3 +79,28 @@
     }
   }
 }
+
+
+.container {
+
+  .c-layout {
+    .c-sidebar {
+      width: 20%;
+      position: absolute;
+      left: 0;
+      top: 175px;
+      background-color: #fff;
+    }
+    .c-content {
+      padding-left: 20%;
+      width: 100%;
+      background-color: #fff;
+    }
+  }
+}
+
+
+.paginationWrap {
+  text-align: center;
+  background-color: transparent;
+}

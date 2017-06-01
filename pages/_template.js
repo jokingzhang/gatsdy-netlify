@@ -1,10 +1,10 @@
-import React from 'react'
-import { Link } from 'react-router'
-import { Container } from 'react-responsive-grid'
-import { prefixLink } from 'gatsby-helpers'
-import { config } from 'config'
+import React from 'react';
+import { Link } from 'react-router';
+import { Container } from 'react-responsive-grid';
+import { prefixLink } from 'gatsby-helpers';
+import { config } from 'config';
 import Header from '../components/Header';
-import Sidebar from '../components/Sidebar';
+import Footer from '../components/Footer';
 import '../scss/container.scss';
 
 
@@ -20,8 +20,8 @@ class Template extends React.Component {
       <Container
         className="blog-container">
         <Header data={config} />
-        <Sidebar data={config} pages={this.props.route.pages} />
         {this.props.children}
+        <Footer />
       </Container>
     )
   }

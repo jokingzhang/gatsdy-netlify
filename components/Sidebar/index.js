@@ -1,12 +1,14 @@
 import React, { Component, PropTypes } from 'react';
-import { prefixLink } from 'gatsby-helpers'
-import { Link } from 'react-router'
+import { prefixLink } from 'gatsby-helpers';
+import { Link } from 'react-router';
+import classnames from 'classnames';
+import { Layout } from 'antd';
 import { config } from 'config';
 import SidebarProfile from './Profile';
 import SidebarLabel from './Label';
 import SidebarLink from './Link';
 
-import './sidebar.scss'
+const { Sider } = Layout;
 
 class Sidebar extends Component {
 
@@ -15,12 +17,14 @@ class Sidebar extends Component {
   }
 
   render() {
+    const { className } = this.props;
+
     return (
-      <div className="sidebar">
+      <Sider className={classnames(className)}>
         <SidebarProfile data={this.props.data} pages={this.props.pages} />
         <SidebarLabel data={this.props.data} pages={this.props.pages} />
         <SidebarLink/>
-      </div>
+      </Sider>
     )
   }
 }
