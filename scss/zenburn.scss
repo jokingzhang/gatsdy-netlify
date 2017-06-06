@@ -8,11 +8,29 @@ based on dark.css by Ivan Sagalaev
 .markdown {
   width: 60%;
   margin: 0 auto;
+  text-align: justify;
+
+  h2,h3,h4,h5,h6 {
+    padding-top: 10px;
+  }
+
+  ul li {
+    list-style: circle;
+  }
+
+  img {
+    box-sizing: border-box;
+    margin: auto;
+    padding: 3px;
+    border: 1px solid #ddd;
+  }
+
   pre {
     display: block;
     background: #3F3F3F;
     color: #DCDCDC;
     overflow-y: hidden;
+    padding: 10px;
 
     code {
       background: none;
@@ -26,8 +44,33 @@ based on dark.css by Ivan Sagalaev
     }
   }
 
-  h1 {
-    color: red;
+  table {
+    margin: 20px 0;
+    width: 100%;
+    border-collapse: collapse;
+    border-spacing: 0;
+    border: 1px solid #ddd;
+    font-size: 14px;
+    table-layout: fixed;
+    word-wrap: break-word;
+
+  }
+
+  th {
+    padding-bottom: 10px;
+    font-weight: 700;
+  }
+
+  th, td {
+    border-bottom: 3px solid #ddd;
+    border-right: 1px solid #eee;
+    padding: 8px;
+    text-align: left;
+    vertical-align: middle;
+  }
+
+  table>tbody>tr:nth-of-type(odd) {
+      background-color: #f9f9f9;
   }
 
   .artical-msg {

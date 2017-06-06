@@ -12,6 +12,17 @@ export default class componentHeader extends Component{
 
   constructor(props) {
     super(props);
+    this.state = {};
+
+    this.state.selectedKey = "1";
+
+    if(this.props.pathName === "/about/") {
+      this.state.selectedKey = "2";
+    }
+
+    if(this.props.pathName === "/archive/") {
+      this.state.selectedKey = "3";
+    }
   }
 
   render() {
@@ -29,7 +40,7 @@ export default class componentHeader extends Component{
           <Menu
             theme="light"
             mode="horizontal"
-            defaultSelectedKeys={['1']}
+            defaultSelectedKeys={[this.state.selectedKey]}
             className="headerMenu">
             <Menu.Item key="1">
               <Link

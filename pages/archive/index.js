@@ -233,7 +233,7 @@ class Archive extends React.Component {
   render () {
 
     return (
-      <div className="archive-container">
+      <div className="archive-container c-content">
         <div className="selection-wrap">
 
           <div className="btn-wrap">
@@ -242,6 +242,7 @@ class Archive extends React.Component {
               <div className="btn" onClick={() => this.handelSelectALL()}>ALL</div>
             </div>
           </div>
+
           <div className="btn-wrap">
             <div className="title">分类筛选</div>
             <div className="btn-group">
@@ -259,6 +260,7 @@ class Archive extends React.Component {
               ))}
             </div>
           </div>
+
         </div>
 
         <div className="list-wrap">

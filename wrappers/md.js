@@ -1,16 +1,25 @@
 import React from 'react'
 import moment from 'moment'
+import $ from 'jquery';
 import Helmet from "react-helmet"
 import ReadNext from '../components/ReadNext'
 import { config } from 'config'
 
 import '../scss/zenburn.scss'
+import '../scss/container.scss'
 
 class MarkdownWrapper extends React.Component {
 
   constructor(props) {
     super(props);
-    console.info(props);
+    this.state = {};
+    var _node = $(this.props.route.page.data.body);
+    var _arr = _node.filter(":header");
+    //这里暂时只支持一级标题
+    //有一个标题列表，按层级1~6来嵌套
+    // while(_arr.length > 0) {
+
+    // }
   }
 
   render () {
@@ -18,7 +27,7 @@ class MarkdownWrapper extends React.Component {
     const post = route.page.data;
 
     return (
-      <div className="markdown">
+      <div className="markdown c-content">
         <Helmet
           title={`${post.title} | ${config.blogTitle}`}
         />

@@ -4,7 +4,7 @@ import '../../scss/container.scss';
 export default class About extends Component {
   render () {
     return (
-      <div className="landing-container">
+      <div className="c-content">
         不能光写一个关于吧...<br/>
         总带写点啥吧...<br/>
         1小时学习 + 3小时练习<br/>

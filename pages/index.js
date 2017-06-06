@@ -9,10 +9,8 @@ import { prefixLink } from 'gatsby-helpers'
 import Helmet from "react-helmet"
 import { config } from 'config'
 import { Button, Breadcrumb, Layout, BackTop, Pagination } from 'antd';
-import Sidebar from '../components/Sidebar';
 import include from 'underscore.string/include'
 import Bio from 'components/Bio'
-import 'antd/lib/back-top/style';
 import 'antd/lib/pagination/style';
 import 'antd/lib/button/style';
 import '../scss/icon-font.scss';
@@ -107,58 +105,49 @@ class BlogIndex extends Component {
             {"name": "keywords", "content": "blog, articles"},
           ]}
         />
-        <Breadcrumb style={{ margin: '12px 0' }}>
-          <Breadcrumb.Item>Home</Breadcrumb.Item>
-          <Breadcrumb.Item>List</Breadcrumb.Item>
-          <Breadcrumb.Item>App</Breadcrumb.Item>
-        </Breadcrumb>
-        <Layout className="c-layout">
-          <Sidebar className={classnames('c-sidebar')} data={config} pages={this.props.route.pages} />
-          <Content className="c-content">
-            <ul className="landing-article-list">
-              {this.state.visiblePages.map((page) => (
-                  <li
-                    className="landing-article-item"
-                    key={page.path}>
-                    <Link className="article-title" to={prefixLink(page.path)}>
-                        {get(page, 'data.title', page.path)}
+        <Content className="c-content">
+          <ul className="landing-article-list">
+            {this.state.visiblePages.map((page) => (
+                <li
+                  className="landing-article-item"
+                  key={page.path}>
+                  <Link className="article-title" to={prefixLink(page.path)}>
+                      {get(page, 'data.title', page.path)}
+                  </Link>
+
+                  <div className="article-msg">
+                    <span className="msg-item">日期：{ moment(get(page, 'data.date')).format('MMMM D, YYYY') }</span> |
+                    <span className="msg-item">分类：{ page.data.categories.map((item, idx) => (<span className="msg-sub-item" key={idx}>{item}</span>)) }</span> |
+                    <span className="msg-item">标签：{ page.data.tags.map((item, idx) => (<span className="msg-sub-item" key={idx}>{item}</span>)) }</span>
+                  </div>
+
+                  {get(page, 'data.cover') ?
+                  (<div className="article-pic">
+                      <img
+                        src={require(`../images/${page.data.cover}`)}
+                        alt={get(page, 'data.title')}/>
+                  </div>) : ""}
+
+                  <div className="article-desc">
+                    { $(get(page, 'data.body')).html() || get(page, 'data.desc')}
+                  </div>
+                  <Button>
+                    <Link className="icon" to={prefixLink(page.path)}>
+                      more >
                     </Link>
+                  </Button>
 
-                    <div className="article-msg">
-                      <span className="msg-item">日期：{ moment(get(page, 'data.date')).format('MMMM D, YYYY') }</span> |
-                      <span className="msg-item">分类：{ page.data.categories.map((item, idx) => (<span className="msg-sub-item" key={idx}>{item}</span>)) }</span> |
-                      <span className="msg-item">标签：{ page.data.tags.map((item, idx) => (<span className="msg-sub-item" key={idx}>{item}</span>)) }</span>
-                    </div>
-
-                    {get(page, 'data.cover') ?
-                    (<div className="article-pic">
-                        <img
-                          src={require(`../images/${page.data.cover}`)}
-                          alt={get(page, 'data.title')}/>
-                    </div>) : ""}
-
-                    <div className="article-desc">
-                      { $(get(page, 'data.body')).html() || get(page, 'data.desc')}
-                    </div>
-                    <Button>
-                      <Link className="icon" to={prefixLink(page.path)}>
-                        more >
-                      </Link>
-                    </Button>
-
-                  </li>
-              ))}
-            </ul>
-            <Pagination
-              className="paginationWrap"
-              current={this.state.currentPage}
-              pageSize={this.state.pageSize}
-              total={this.state.totalPage}
-              data={this.state}
-              onChange={this.onPageChange}/>
-          </Content>
-          <BackTop />
-        </Layout>
+                </li>
+            ))}
+          </ul>
+          <Pagination
+            className="paginationWrap"
+            current={this.state.currentPage}
+            pageSize={this.state.pageSize}
+            total={this.state.totalPage}
+            data={this.state}
+            onChange={this.onPageChange}/>
+        </Content>
       </div>
     )
   }

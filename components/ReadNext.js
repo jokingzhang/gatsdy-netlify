@@ -7,29 +7,61 @@ import find from 'lodash/find'
 class ReadNext extends React.Component {
   render () {
     const { pages, post } = this.props
-    const { readNext } = post
-    let nextPost
+    const { readNext, readBefore } = post
+    let nextPost,beforePost
     if (readNext) {
       nextPost = find(pages, (page) =>
         includes(page.path, readNext)
       )
     }
-    if (!nextPost) {
+
+    if (readBefore) {
+      beforePost = find(pages, (page) =>
+        includes(page.path, readBefore)
+      )
+    }
+    if (!beforePost && !nextPost) {
       return React.createElement('noscript', null)
     } else {
-      nextPost = find(pages, (page) =>
-        includes(page.path, readNext.slice(1, -1))
-      )
+      if(readNext) {
+        nextPost = find(pages, (page) =>
+          includes(page.path, readNext.slice(1, -1))
+        )
+      }
+
+      if(readBefore) {
+        beforePost = find(pages, (page) =>
+          includes(page.path, readBefore.slice(1, -1))
+        )
+      }
       // Create pruned version of the body.
-      const html = nextPost.data.body
-      const body = prune(html.replace(/<[^>]*>/g, ''), 200)
+      // const html = nextPost.data.body
+      // const body = prune(html.replace(/<[^>]*>/g, ''), 200)
 
       return (
         <div>
-          <h6>
+
+          {beforePost? (<h6>
+            READ THIS BEFORE:
+          </h6>) : ""}
+          {beforePost? (<h3>
+            <Link
+              to={{
+                pathname: prefixLink(beforePost.path),
+                query: {
+                  readNext: true,
+                },
+              }}
+            >
+              {beforePost.data.title}
+            </Link>
+          </h3>) : ""}
+
+
+          {nextPost? (<h6>
             READ THIS NEXT:
-          </h6>
-          <h3>
+          </h6>) : ""}
+          {nextPost? (<h3>
             <Link
               to={{
                 pathname: prefixLink(nextPost.path),
@@ -40,8 +72,10 @@ class ReadNext extends React.Component {
             >
               {nextPost.data.title}
             </Link>
-          </h3>
-          <p>{body}</p>
+          </h3>) : ""}
+
+
+
           <hr />
         </div>
       )
