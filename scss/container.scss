@@ -111,3 +111,21 @@
   text-align: center;
   background-color: transparent;
 }
+
+.nav-anchor {
+  position: absolute;
+  right: 0;
+  top: 40px;
+  width: 20%;
+  min-width: 280px;
+}
+
+.ant-affix {
+  .nav-anchor {
+    top: 0px;
+  }
+}
+
+.ant-affix {
+
+}
