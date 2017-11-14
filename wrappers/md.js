@@ -38,7 +38,7 @@ class MarkdownWrapper extends React.Component {
     var _treeList = [];
     var _nodeList = [];
     // _nodeList.push(<Link href={`#${_tree.id}`} title={_tree.innerText}> </Link>);
-    console.info("_arr==>", _arr);
+    // console.info("_arr==>", _arr);
     while(_arr.length > 0) {
       var _nextHeading = _arr.splice(0, 1);
       // console.info("_nextHeading[0].id===>", _nextHeading[0].id)

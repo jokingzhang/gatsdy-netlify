@@ -60,9 +60,9 @@ class Template extends React.Component {
     const { location, children, route} = this.props;
     return (
       <Container
-        className="blog-container container">
+        className="container">
         <Header data={config} pathName={this.props.location.pathname} />
-        <Layout className="c-layout">
+        <Layout className="blog-container c-layout">
           <Sidebar className={classnames('c-sidebar')} data={config} pages={this.props.route.pages} />
           {this.renderBreadcrumb()}
           {this.props.children}
