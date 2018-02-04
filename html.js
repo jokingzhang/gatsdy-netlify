@@ -4,6 +4,7 @@ import { prefixLink } from 'gatsby-helpers'
 
 const BUILD_TIME = new Date().getTime()
 
+
 module.exports = React.createClass({
   displayName: 'HTML',
   propTypes: {
@@ -17,6 +18,14 @@ module.exports = React.createClass({
     if (process.env.NODE_ENV === 'production') {
       css = <style dangerouslySetInnerHTML={{ __html: require('!raw!./public/styles.css') }} />
     }
+
+    let mainStyle = {
+      position: 'absolute',
+      top: '0',
+      bottom: '0',
+      width: '100%',
+      height: '100%'
+    };
 
     return (
       <html lang="en">
@@ -32,7 +41,7 @@ module.exports = React.createClass({
           {css}
         </head>
         <body>
-          <div id="react-mount" dangerouslySetInnerHTML={{ __html: body }} />
+          <div id="react-mount" style={mainStyle} dangerouslySetInnerHTML={{ __html: body }} />
           <script src={prefixLink(`/bundle.js?t=${BUILD_TIME}`)} />
         </body>
       </html>

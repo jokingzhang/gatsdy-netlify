@@ -1,17 +1,6 @@
 .blog-container {
   position: relative;
-  margin-left: auto;
-  margin-right: auto;
-
-  @media (min-width: 769px) {
-      width: 750px;
-  }
-  @media (min-width: 992px) {
-      width: 970px;
-  }
-  @media (min-width: 1200px) {
-      width: 1170px;
-  }
+  background-color: #95b2cc;
 }
 
 
@@ -82,35 +71,94 @@
 
 
 .container {
-  background-color: transparent;
+  overflow-x: hidden;
+  overflow-y: auto;
+  background-color: #e9e5e0;
+  height: 100%;
+
   .c-layout {
     position: relative;
-    background-color: transparent;
-    margin-top: 120px;
+    margin-top: 80px;
+    margin-left: auto;
+    margin-right: auto;
+    @media (min-width: 769px) {
+        width: 750px;
+    }
+    @media (min-width: 992px) {
+        width: 970px;
+    }
+    @media (min-width: 1200px) {
+        width: 1170px;
+    }
+
     .c-sidebar {
       position: absolute;
       margin-left: 2px;
       left: 0;
-      top: 45px;
-      width: 25% !important;
+      top: 20px;
+      width: 20% !important;
       max-width: 220px;
       max-height: 650px;
       background-color: #fff;
     }
+    .c-sidebar-right {
+      position: absolute;
+      right: 0;
+      top: 40px;
+      display: none;
+      margin-left: 2px;
+      max-height: 650px;
+
+      @media (min-width: 769px) {
+          display: block;
+          width: 240px;
+      }
+      @media (min-width: 992px) {
+          width: 260px;
+      }
+      @media (min-width: 1200px) {
+          width: 280px;
+      }
+
+    }
     .c-content {
       width: 100%;
       min-height: 652px;
-      padding-left: 26%;
-      background-color: #fff;
-
+      padding-top: 20px;
+      @media (min-width: 769px) {
+          padding-right: 240px;
+      }
+      @media (min-width: 992px) {
+          padding-right: 260px;
+      }
+      @media (min-width: 1200px) {
+          padding-right: 280px;
+      }
     }
   }
 }
 
 
-.paginationWrap {
+.pagination-wrapper {
   text-align: center;
   background-color: transparent;
+
+  .ant-pagination-item,
+  .ant-pagination-next,
+  .ant-pagination-prev {
+    &:hover {
+      border-color: #06ad9e;
+
+      a {
+        color: #06ad9e;
+      }
+    }
+  }
+
+  .ant-pagination-item-active {
+    background-color: #06ad9e;
+    border-color: #06ad9e;
+  }
 }
 
 .nav-anchor {
@@ -129,4 +177,12 @@
 
 .ant-affix {
 
+}
+
+
+.c-back-top {
+  @media (max-width:768px) {
+    right: 25px;
+    bottom: 40px;
+  }
 }

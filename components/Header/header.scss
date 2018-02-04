@@ -8,27 +8,32 @@
   border-bottom: 1px solid #ddd;
   height: 84px;
   line-height: 74px;
-  background-color: #f1b717;
+  background-color: #2a3239;
+  transition: background-color 0.2s;
   box-shadow: 0 1px 2px rgba(0, 0, 0, .1);
   z-index: 1000;
 
+  @media (max-width: 768px) {
+    padding: 0 20px;
+  }
+
   .headerTitle {
+    width: 100%;
     display: flex;
     justify-content: center;
     align-items: center;
     margin: 0;
+    overflow: hidden;
 
     a {
       text-decoration: none;
       box-shadow: none;
-      transition: color 0.5s;
-      line-height: 70px;
+      line-height: 1.5;
       color: #fff;
-
-      &:hover {
-        color: #373a3f;
-      }
+      width: 100%;
+      display: inline-block;
     }
+
   }
 
   .headerMenu {
@@ -53,20 +58,24 @@
         font-weight: 700;
         box-shadow: none;
         transition: color 0.5s;
-        color: #fff;
+        color: #515963;
 
         &:hover {
-          color: #373a3f;
+          color: #fff;
         }
       }
 
 
       &.header-selected {
         a {
-          color: #373a3f;
+          color: #fff;
         }
       }
 
+    }
+
+    @media (max-width: 768px) {
+      display: none;
     }
   }
 

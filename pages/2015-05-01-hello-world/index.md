@@ -3,6 +3,7 @@ title: Hello World
 date: "2015-05-01T22:12:03.284Z"
 readNext: "/my-second-post/"
 path: "/hello-world/"
+recommend: true
 tags:
   - t1
   - t2

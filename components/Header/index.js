@@ -41,8 +41,7 @@ export default class componentHeader extends Component{
     return (
       <Header
         id="header"
-        className="headerWrap"
-        theme="light">
+        className="headerWrap">
           <h1 className="headerTitle">
             <Link
               to={prefixLink('/')}>
@@ -50,7 +49,6 @@ export default class componentHeader extends Component{
             </Link>
           </h1>
           <Menu
-            theme="light"
             mode="horizontal"
             defaultSelectedKeys={[this.state.selectedKey]}
             className="headerMenu">

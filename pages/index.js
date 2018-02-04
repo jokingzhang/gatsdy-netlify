@@ -2,8 +2,8 @@ import React, { Component, PropTypes } from 'react';
 import $ from 'jquery'
 import moment from 'moment'
 import classnames from 'classnames';
-import { browserHistory, Link } from 'react-router'
-import sortBy from 'lodash/sortBy'
+import { browserHistory, Link } from 'react-router';
+import sortBy from 'lodash/sortBy';
 import get from 'lodash/get'
 import { prefixLink } from 'gatsby-helpers'
 import Helmet from "react-helmet"
@@ -116,9 +116,17 @@ class BlogIndex extends Component {
                   </Link>
 
                   <div className="article-msg">
-                    <span className="msg-item">日期：{ moment(get(page, 'data.date')).format('MMMM D, YYYY') }</span> |
-                    <span className="msg-item">分类：{ page.data.categories.map((item, idx) => (<span className="msg-sub-item" key={idx}>{item}</span>)) }</span> |
-                    <span className="msg-item">标签：{ page.data.tags.map((item, idx) => (<span className="msg-sub-item" key={idx}>{item}</span>)) }</span>
+
+                    <div className="msg-item-wrapper">
+                      <h4 className="msg-item-title">日期：</h4>
+                      <div className="msg-item-content">{ moment(get(page, 'data.date')).format('YYYY年MM月DD日') }</div>
+                    </div>
+
+                    <div className="msg-item-wrapper">
+                      <h4 className="msg-item-title">标签：</h4>
+                      <div className="msg-item-content">{ page.data.tags.map((item, idx) => (<span className="msg-sub-item" key={idx}>{item}</span>)) }</div>
+                    </div>
+
                   </div>
 
                   {get(page, 'data.cover') ?
@@ -131,17 +139,16 @@ class BlogIndex extends Component {
                   <div className="article-desc">
                     { $(get(page, 'data.body')).html() || get(page, 'data.desc')}
                   </div>
-                  <Button>
-                    <Link className="icon" to={prefixLink(page.path)}>
-                      more >
-                    </Link>
-                  </Button>
+                  <Link className="article-btn" to={prefixLink(page.path)}>
+                    查看全文
+                  </Link>
+
 
                 </li>
             ))}
           </ul>
           <Pagination
-            className="paginationWrap"
+            className="pagination-wrapper"
             current={this.state.currentPage}
             pageSize={this.state.pageSize}
             total={this.state.totalPage}

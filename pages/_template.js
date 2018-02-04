@@ -7,7 +7,7 @@ import { prefixLink } from 'gatsby-helpers';
 import { config } from 'config';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
-import Sidebar from '../components/Sidebar';
+import Sidebar from '../components/SideBarRight/';
 import 'antd/lib/back-top/style';
 import 'antd/lib/breadcrumb/style';
 import '../scss/normalize.css';
@@ -63,11 +63,12 @@ class Template extends React.Component {
         className="container">
         <Header data={config} pathName={this.props.location.pathname} />
         <Layout className="blog-container c-layout">
-          <Sidebar className={classnames('c-sidebar')} data={config} pages={this.props.route.pages} />
-          {this.renderBreadcrumb()}
+          <Sidebar className={classnames('c-sidebar-right')} data={config} pages={this.props.route.pages} />
+          {/* <Sidebar className={classnames('c-sidebar')} data={config} pages={this.props.route.pages} /> */}
+          {/* {this.renderBreadcrumb()} */}
           {this.props.children}
         </Layout>
-        <BackTop />
+        <BackTop className={classnames('c-back-top')} />
         <Footer />
       </Container>
     )
