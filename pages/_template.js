@@ -19,8 +19,53 @@ class Template extends React.Component {
   constructor(props) {
     super(props);
 
-    console.info("this.props.location", this.props);
+    const { location, children, route} = this.props;
+    const onlyContentPaths = ['/about/', '/archive/', '/404.html'];
+
+    this.state = {};
+    this.state.isSidebar = onlyContentPaths.indexOf(location.pathname) >= 0 ? false : true;
+
+    // console.info("constructor::this.props.location", this.props, this.state);
   }
+
+  componentDidMount() {
+    // console.info('componentDidMount called');
+  }
+
+  componentWillUnmount() {
+    // console.info('componentWillUnmount called');
+  }
+
+  componentWillUpdate(nextProps) {
+    let path = nextProps.location.pathname;
+    if(path != this.props.location.pathname) {
+    // console.info('componentWillUpdate called', path, this.props.location.pathname);
+      this.setIsSidebar(path);
+    }
+  }
+
+  componentDidUpdate() {
+    // console.info('componentDidUpdate called');
+  }
+
+  componentWillReceiveProps(nextProps) {
+    // console.info('componentWillReceiveProps called', nextProps, this.props);
+  }
+
+  setIsSidebar (path) {
+    console.info('setIsSidebar called', path);
+    let onlyContentPaths = ['/about/', '/archive/', '/404.html'];
+    if (onlyContentPaths.indexOf(path) >= 0) {
+      this.setState({
+        isSidebar: false
+      })
+    } else {
+      this.setState({
+        isSidebar: true
+      })
+    }
+  }
+
 
   renderBreadcrumb () {
     var _breadList = []
@@ -57,13 +102,31 @@ class Template extends React.Component {
   }
 
   render () {
+
     const { location, children, route} = this.props;
+
+    const headerData = [{
+      title: '首页',
+      path: '/'
+    },{
+      title: '关于',
+      path: '/about/'
+    },{
+      title: '归档',
+      path: '/archive/'
+    }];
+
+    let isSidebarHide = this.state.isSidebar ? "" : "hide";
+
+    console.info('render called', this.props, this.state, isSidebarHide);
+
     return (
       <Container
         className="container">
-        <Header data={config} pathName={this.props.location.pathname} />
+        <Header data={config} list={headerData} pathName={this.props.location.pathname} />
         <Layout className="blog-container c-layout">
-          <Sidebar className={classnames('c-sidebar-right')} data={config} pages={this.props.route.pages} />
+
+          <Sidebar className={classnames('c-sidebar-right', isSidebarHide)} data={config} pages={this.props.route.pages} />
           {/* <Sidebar className={classnames('c-sidebar')} data={config} pages={this.props.route.pages} /> */}
           {/* {this.renderBreadcrumb()} */}
           {this.props.children}

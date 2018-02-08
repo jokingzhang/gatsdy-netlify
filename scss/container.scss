@@ -1,12 +1,85 @@
-.blog-container {
-  position: relative;
-  background-color: #95b2cc;
+.container {
+  overflow-x: hidden;
+  overflow-y: auto;
+  background-color: #f4f1f0;
+  height: 100%;
+
+  .c-layout {
+    position: relative;
+    margin-top: 80px;
+    margin-left: auto;
+    margin-right: auto;
+    @media (min-width: 769px) {
+        width: 750px;
+    }
+    @media (min-width: 992px) {
+        width: 970px;
+    }
+    @media (min-width: 1200px) {
+        width: 1170px;
+    }
+
+    .c-sidebar {
+      position: absolute;
+      margin-left: 2px;
+      left: 0;
+      top: 20px;
+      width: 20% !important;
+      max-width: 220px;
+      max-height: 650px;
+      background-color: #fff;
+    }
+    .c-sidebar-right {
+      position: absolute;
+      right: 0;
+      top: 40px;
+      display: none;
+      margin-left: 2px;
+      max-height: 650px;
+
+      @media (min-width: 769px) {
+          display: block;
+          width: 240px;
+      }
+      @media (min-width: 992px) {
+          width: 260px;
+      }
+      @media (min-width: 1200px) {
+          width: 280px;
+      }
+
+      &.hide {
+        display: none;
+      }
+
+    }
+    .c-content {
+      width: 100%;
+      min-height: 652px;
+      padding-top: 20px;
+      @media (min-width: 769px) {
+          padding-right: 240px;
+      }
+      @media (min-width: 992px) {
+          padding-right: 260px;
+      }
+      @media (min-width: 1200px) {
+          padding-right: 280px;
+      }
+    }
+  }
 }
 
+
+.blog-container {
+  position: relative;
+  background-color: transparent;
+}
 
 .archive-container {
   width: 60%;
   margin: 0 auto;
+  padding-right: 0;
 
   .selection-wrap {
     .btn-wrap {
@@ -68,76 +141,6 @@
     }
   }
 }
-
-
-.container {
-  overflow-x: hidden;
-  overflow-y: auto;
-  background-color: #e9e5e0;
-  height: 100%;
-
-  .c-layout {
-    position: relative;
-    margin-top: 80px;
-    margin-left: auto;
-    margin-right: auto;
-    @media (min-width: 769px) {
-        width: 750px;
-    }
-    @media (min-width: 992px) {
-        width: 970px;
-    }
-    @media (min-width: 1200px) {
-        width: 1170px;
-    }
-
-    .c-sidebar {
-      position: absolute;
-      margin-left: 2px;
-      left: 0;
-      top: 20px;
-      width: 20% !important;
-      max-width: 220px;
-      max-height: 650px;
-      background-color: #fff;
-    }
-    .c-sidebar-right {
-      position: absolute;
-      right: 0;
-      top: 40px;
-      display: none;
-      margin-left: 2px;
-      max-height: 650px;
-
-      @media (min-width: 769px) {
-          display: block;
-          width: 240px;
-      }
-      @media (min-width: 992px) {
-          width: 260px;
-      }
-      @media (min-width: 1200px) {
-          width: 280px;
-      }
-
-    }
-    .c-content {
-      width: 100%;
-      min-height: 652px;
-      padding-top: 20px;
-      @media (min-width: 769px) {
-          padding-right: 240px;
-      }
-      @media (min-width: 992px) {
-          padding-right: 260px;
-      }
-      @media (min-width: 1200px) {
-          padding-right: 280px;
-      }
-    }
-  }
-}
-
 
 .pagination-wrapper {
   text-align: center;

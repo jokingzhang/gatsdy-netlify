@@ -1,6 +1,8 @@
 import React, { Component, PropTypes } from 'react';
 import { prefixLink } from 'gatsby-helpers';
 import { Link } from 'react-router';
+import { config } from 'config';
+import { Pagination } from 'antd';
 import classnames from 'classNames';
 import sortBy from 'lodash/sortBy';
 import map from 'lodash/map';
@@ -8,270 +10,229 @@ import get from 'lodash/get';
 import uniq from 'lodash/uniq';
 import intersectionWith from 'lodash/intersectionWith';
 import isEqual from 'lodash/isEqual';
+import filter from 'lodash/filter';
+import Tags from './Tags';
+import List from './List';
 import '../../scss/container.scss';
+import './archive.scss';
+
+const maxPageSize = 10;
+const isolationPaths = ['/about/', '/archive/', '/404.html', '/'];
 
 class Archive extends React.Component {
 
   constructor(props) {
     super(props);
-    const isolationPaths = ['/about/', '/archive/', '/404.html', '/'];
-    this.state = {};
-    this.state.blogCategories = [];
-    this.state.blogTags = [];
-    this.state.articals = this.props.route.pages.filter(page => {
+    let tag = this.props.location.query.t;
+    let tags = [];
+    let blogTags = [];
+    let pageNumber = 1;
 
-      if (page.data && page.data.categories && page.data.categories.length > 0) {
-        this.state.blogCategories = this.state.blogCategories.concat(page.data.categories);
-      }
-
+    this.props.route.pages.map(page => {
       if (page.data && page.data.tags && page.data.tags.length > 0) {
-        this.state.blogTags = this.state.blogTags.concat(page.data.tags);
+        tags = tags.concat(page.data.tags);
       }
+    })
 
-      if (isolationPaths.indexOf(page.path) < 0 && page.data && page.data.title) {
-        page.show = true;
+    tags = uniq(tags);
+
+    blogTags.push({
+      title: '全部',
+      tag: '',
+      active: this.props.location.query.t ? false : true
+    })
+
+    tags.forEach((tag, tIdx) => {
+
+      blogTags.push({
+        title: tag,
+        tag: tag,
+        active: this.props.location.query.t == tag ? true : false
+      })
+    })
+
+    let list = filter(this.props.route.pages, (page) => {
+      if(page && page.data && page.data.tags && page.data.tags.length > 0 &&  page.data.tags.indexOf(tag) >= 0) {
+        return true;
+      }
+    })
+
+    if (!tag) {
+      list = filter(this.props.route.pages, (page) => {
+        console.info(page.path)
+        if(page && page.path && page.data.title && isolationPaths.indexOf(page.path) < 0) {
+          return true;
+        }
+      })
+    }
+
+    list = list.sort((a,b) => {
+      if (a.data.date > b.data.date) {
+        return -1;
+      } else if(a.data.date < b.data.date){
+        return 1;
+      } else {
+        return 0;
+      }
+    })
+
+    let visiblePages = list.filter((page, pageIdx) => {
+      let _pageNum = Math.floor(pageIdx/maxPageSize);
+      _pageNum+=1;
+      if (_pageNum === pageNumber) {
         return true;
       } else {
-        return false;
+        return false
       }
     })
-    console.info('this.state.blogCategories', this.state.blogCategories)
-    this.state.blogCategories = uniq(this.state.blogCategories);
-    this.state.blogCategories = map(this.state.blogCategories, function(text){
-      return {
-        state: "default",
-        text: text
-      };
-    })
-    this.state.blogTags = uniq(this.state.blogTags);
-    this.state.blogTags = map(this.state.blogTags, function(text){
-      return {
-        state: "default",
-        text: text
-      };
-    })
+
+
+    console.info('List', this.props, list);
+
+    console.info('tags', blogTags, this.props);
+
+    this.state = {
+      tags: blogTags,
+      totalList: list,
+      list: visiblePages,
+      currentPage: 1,
+      pageSize: maxPageSize,
+      totalPage: list.length,
+    }
+    console.info("Archive::props", this.props);
+
+    this.onPageChange = this.onPageChange.bind(this);
   }
 
-  handelSelectALL () {
-    let _obj = JSON.parse(JSON.stringify(this.state));
-    _obj.blogCategories.forEach((item) => {
-      item.state = "default";
-    })
-    _obj.blogTags.forEach((item) => {
-      item.state = "default";
-    })
-    _obj.articals.forEach((item) => {
-      item.show = true;
-    })
-    this.setState(_obj);
-  }
+  setPage (location) {
+    console.info('setPage called');
+    let tag = location.query.t;
+    let tags = [];
+    let blogTags = [];
+    let pageNumber = 1;
 
-  handelSelectCategories (item, index) {
-    if (!this.state.blogCategories[index].state || this.state.blogCategories[index].state === "disabled") {
-      return;
-    }
-    let _state = 'default';
-    let _obj = JSON.parse(JSON.stringify(this.state));
-    let _text = _obj.blogCategories[index].text;
-    let _filterCategories = [];
-    let _filterTags = [];
-
-    if (_obj.blogCategories[index].state === "default") {
-      _state = "active";
-    } else {
-      _state = "default";
-    }
-    _obj.blogCategories.forEach((ca) => {
-      if(ca.state === "active") {
-        ca.state = "default";
+    this.props.route.pages.map(page => {
+      if (page.data && page.data.tags && page.data.tags.length > 0) {
+        tags = tags.concat(page.data.tags);
       }
     })
-    _obj.blogCategories[index].state = _state;
 
-    // set _filterCategories && _filterTags
-    let _articalTags = [];
-    if (_state === "active") {
+    tags = uniq(tags);
 
-      _filterCategories = [_text];
-      _obj.articals.forEach((item) => {
-        if(get(item, 'data.categories').indexOf(_text) >= 0) {
-          let _itemTags = get(item, 'data.tags');
-          _articalTags = _articalTags.concat(_itemTags);
-        }
+    blogTags.push({
+      title: '全部',
+      tag: '',
+      active: location.query.t ? false : true
+    })
+
+    tags.forEach((tag, tIdx) => {
+
+      blogTags.push({
+        title: tag,
+        tag: tag,
+        active: location.query.t == tag ? true : false
       })
-      _articalTags = uniq(_articalTags);
+    })
 
-      _obj.blogTags.forEach((item) => {
-        if (item.state === "disabled") {
-          item.state = "default";
-        }
-        if (_articalTags && _articalTags.length > 0 && _articalTags.indexOf(item.text) < 0) {
-          item.state = "disabled";
-        }
-        if (item.state === "active") {
-          _filterTags.push(item.text);
-        }
-      })
+    let list = filter(this.props.route.pages, (page) => {
+      if(page && page.data && page.data.tags && page.data.tags.length > 0 &&  page.data.tags.indexOf(tag) >= 0) {
+        return true;
+      }
+    })
 
-    } else {
-
-      _obj.blogTags.forEach((item) => {
-        if (item.state === "disabled") {
-          item.state = "default";
-        }
-        if (item.state === "active") {
-          _filterTags.push(item.text);
+    if (!tag) {
+      list = filter(this.props.route.pages, (page) => {
+        console.info(page.path)
+        if(page && page.path && page.data.title && isolationPaths.indexOf(page.path) < 0) {
+          return true;
         }
       })
     }
 
-    _obj.articals.forEach((item) => {
-      let _flag = true;
-      if (_filterCategories && _filterCategories.length > 0) {
-        let presentCategories = intersectionWith(_filterCategories, get(item, 'data.categories'), isEqual);
-        if(!presentCategories || presentCategories.length == 0) {
-          _flag = false;
-        }
-      }
-      if (_filterTags && _filterTags.length > 0) {
-        let presentTags = intersectionWith(_filterTags, get(item, 'data.tags'), isEqual);
-        if(!presentTags || presentTags.length == 0) {
-          _flag = false;
-        }
-      }
-      if (_flag) {
-        item.show = true;
+    list = list.sort((a,b) => {
+      if (a.data.date > b.data.date) {
+        return -1;
+      } else if(a.data.date < b.data.date){
+        return 1;
       } else {
-        item.show = false;
+        return 0;
       }
     })
 
+    let visiblePages = list.filter((page, pageIdx) => {
+      let _pageNum = Math.floor(pageIdx/maxPageSize);
+      _pageNum+=1;
+      if (_pageNum === pageNumber) {
+        return true;
+      } else {
+        return false
+      }
+    })
 
-    console.info(_obj);
-    this.setState(_obj);
+    console.info('List', this.props, list);
+
+    console.info('tags', blogTags, this.props);
+
+    let _state = {
+      tags: blogTags,
+      totalList: list,
+      list: visiblePages,
+      currentPage: 1,
+      pageSize: maxPageSize,
+      totalPage: list.length,
+    }
+
+    this.setState(_state);
   }
 
-  handelSelectTags(item, index) {
-    if (!this.state.blogTags[index].state || this.state.blogTags[index].state === "disabled") {
-      return;
+  componentWillUpdate(nextProps) {
+    console.info('Archive::componentWillUpdate==>', nextProps, this.props);
+    if (nextProps.location.search != this.props.location.search) {
+      this.setPage(nextProps.location);
     }
-    let _state = 'default';
-    let _obj = JSON.parse(JSON.stringify(this.state));
-    let _text = _obj.blogTags[index].text;
-    let _filterCategories = [];
-    let _filterTags = [];
+  }
 
-    if (_obj.blogTags[index].state === "default") {
-      _state = "active";
-    } else {
-      _state = "default";
-    }
+  onPageChange (pageNum) {
+    let pageNumber = pageNum;
 
-    _obj.blogTags[index].state = _state;
+    let pageLength = this.state.totalList.length;
 
-    // set _filterCategories && _filterTags
-    let _articalCategories = [];
-    // debugger;
-
-    _filterTags = [];
-    _obj.blogTags.forEach((item) => {
-      if(item && item.state === "active") {
-        _filterTags.push(item.text);
-      }
-    })
-    _obj.articals.forEach((item) => {
-      let presentTags = intersectionWith(_filterTags, get(item, 'data.tags'), isEqual);
-      if(presentTags && presentTags.length > 0) {
-        let _itemCategories = get(item, 'data.categories');
-        _articalCategories = _articalCategories.concat(_itemCategories);
-      }
-    })
-    _articalCategories = uniq(_articalCategories);
-
-    _obj.blogCategories.forEach((item) => {
-      if (item.state === "disabled") {
-        item.state = "default";
-      }
-      if (_articalCategories && _articalCategories.length > 0 && _articalCategories.indexOf(item.text) < 0) {
-        item.state = "disabled";
-      }
-      if (item.state === "active") {
-        _filterCategories.push(item.text);
-      }
-    })
-
-    if (_filterCategories && _filterCategories.length > 1) {
-      console.error("_filterCategories.length should less than or equal to 1");
-    }
-
-    _obj.articals.forEach((item) => {
-      let _flag = true;
-      if (_filterCategories && _filterCategories.length > 0) {
-        let presentCategories = intersectionWith(_filterCategories, get(item, 'data.categories'), isEqual);
-        if(!presentCategories || presentCategories.length == 0) {
-          _flag = false;
-        }
-      }
-      if (_filterTags && _filterTags.length > 0) {
-        let presentTags = intersectionWith(_filterTags, get(item, 'data.tags'), isEqual);
-        if(!presentTags || presentTags.length == 0) {
-          _flag = false;
-        }
-      }
-      if (_flag) {
-        item.show = true;
+    let visiblePages = this.state.totalList.filter((page, pageIdx) => {
+      let _pageNum = Math.floor(pageIdx/maxPageSize);
+      _pageNum+=1;
+      if (_pageNum === pageNumber) {
+        return true;
       } else {
-        item.show = false;
+        return false
       }
     })
 
+    let res = {
+      list: visiblePages,
+      currentPage: pageNumber,
+      totalPage: pageLength,
+    }
 
-    console.info(_obj);
-    this.setState(_obj);
+    this.setState(res)
   }
 
   render () {
 
     return (
-      <div className="archive-container c-content">
-        <div className="selection-wrap">
-
-          <div className="btn-wrap">
-            <div className="title">Reset</div>
-            <div className="btn-group">
-              <div className="btn" onClick={() => this.handelSelectALL()}>ALL</div>
-            </div>
-          </div>
-
-          <div className="btn-wrap">
-            <div className="title">分类筛选</div>
-            <div className="btn-group">
-              {this.state.blogCategories.map((item, idx) => (
-                <span key={idx} className={classnames('btn', get(item, 'state'))} onClick={() => this.handelSelectCategories(item, idx)}>{ get(item, 'text') }</span>
-              ))}
-            </div>
-          </div>
-
-          <div className="btn-wrap">
-            <div className="title">标签筛选</div>
-            <div className="btn-group">
-              {this.state.blogTags.map((item, idx) => (
-                <span key={idx} className={classnames('btn', get(item, 'state'))} onClick={() => this.handelSelectTags(item, idx)}>{ get(item, 'text') }</span>
-              ))}
-            </div>
-          </div>
-
+      <div className="c-content archive-container">
+        <div className="container-title">
+          旧的回忆
         </div>
-
-        <div className="list-wrap">
-          {this.state.articals.map((page, idx) => (
-            <Link key={idx} className={page.show ? 'show' : 'hide'} to={prefixLink(page.path)}>
-              <span>日期：{ get(page, 'data.date') }</span> |
-              <span>分类：{ get(page, 'data.categories') }</span> |
-              <span>标签：{ get(page, 'data.tags') }</span> |
-              {get(page, 'data.title')}
-            </Link>
-          ))}
+        <Tags className={classnames('container-tags')} data={this.state.tags} />
+        <List className={classnames('container-list')} data={this.state.list} />
+        <div className="container-pagination">
+          <Pagination
+            className="pagination-wrapper"
+            current={this.state.currentPage}
+            pageSize={this.state.pageSize}
+            total={this.state.totalPage}
+            data={this.state}
+            onChange={this.onPageChange}/>
         </div>
       </div>
     )
