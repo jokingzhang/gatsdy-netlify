@@ -2,11 +2,13 @@ import React from 'react'
 import { Link } from 'react-router'
 import { prefixLink } from 'gatsby-helpers'
 import { prune, include as includes } from 'underscore.string'
+import classnames from 'classnames';
 import find from 'lodash/find'
+import './readNext.scss'
 
 class ReadNext extends React.Component {
   render () {
-    const { pages, post } = this.props
+    const { pages, post, className } = this.props
     const { readNext, readBefore } = post
     let nextPost,beforePost
     if (readNext) {
@@ -39,44 +41,44 @@ class ReadNext extends React.Component {
       // const body = prune(html.replace(/<[^>]*>/g, ''), 200)
 
       return (
-        <div>
+        <div className={classnames(className, 'c-read-next')}>
 
-          {beforePost? (<h6>
-            READ THIS BEFORE:
-          </h6>) : ""}
-          {beforePost? (<h3>
-            <Link
-              to={{
-                pathname: prefixLink(beforePost.path),
-                query: {
-                  readNext: true,
-                },
-              }}
-            >
-              {beforePost.data.title}
-            </Link>
-          </h3>) : ""}
+          {beforePost? (
+            <div className="read-next-wrapper-left">
+              <h6 className="read-next-title">
+                上一篇：
+              </h6>
+              <Link
+                className="read-next-content"
+                to={{
+                  pathname: prefixLink(beforePost.path),
+                  query: {
+                    readNext: true,
+                  },
+                }}
+              >
+                {beforePost.data.title}
+              </Link>
+            </div>) : ""}
 
-
-          {nextPost? (<h6>
-            READ THIS NEXT:
-          </h6>) : ""}
-          {nextPost? (<h3>
-            <Link
-              to={{
-                pathname: prefixLink(nextPost.path),
-                query: {
-                  readNext: true,
-                },
-              }}
-            >
-              {nextPost.data.title}
-            </Link>
-          </h3>) : ""}
-
-
-
-          <hr />
+          {nextPost? (
+            <div className="read-next-wrapper-right">
+              <h6 className="read-next-title">
+                下一篇：
+              </h6>
+              <Link
+                className="read-next-content"
+                to={{
+                  pathname: prefixLink(nextPost.path),
+                  query: {
+                    readNext: true,
+                  },
+                }}
+              >
+                {nextPost.data.title}
+              </Link>
+            </div>
+            ) : ""}
         </div>
       )
     }

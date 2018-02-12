@@ -3,8 +3,10 @@ import moment from 'moment'
 import $ from 'jquery';
 import { Link } from 'react-router';
 import { Anchor } from 'antd';
+import { prefixLink } from 'gatsby-helpers'
 import cloneDeep from 'lodash/cloneDeep'
 import Helmet from "react-helmet"
+import classnames from 'classnames';
 import ReadNext from '../components/ReadNext'
 import { config } from 'config'
 
@@ -12,6 +14,7 @@ import { config } from 'config'
 import 'antd/lib/anchor/style';
 import '../scss/zenburn.scss'
 import '../scss/container.scss'
+import './md.scss'
 
 class MarkdownWrapper extends React.Component {
 
@@ -210,25 +213,38 @@ class MarkdownWrapper extends React.Component {
     return parentNode;
   }
 
+
   render () {
     const { route } = this.props;
     const post = route.page.data;
 
     return (
-      <div className="markdown c-content">
+      <div className="markdown c-content page-article">
         <Helmet
           title={`${post.title} | ${config.blogTitle}`}
         />
         {this.renderNavList()}
-        <h1 style={{marginTop: 0}}>{post.title}</h1>
-        <div className="artical-msg">
-          <span>发表时间：{moment(post.date).format('MMMM D, YYYY')}</span>|
-          <span>分类：{post.categories}</span>
+        <div className="article-wrapper">
+          <h1 className="article-title">{post.title}</h1>
+
+          <div className="article-msg">
+
+            <div className="msg-item-wrapper">
+              <h4 className="msg-item-title">日期：</h4>
+              <div className="msg-item-content">{ moment(post.date).format('YYYY年MM月DD日') }</div>
+            </div>
+
+            <div className="msg-item-wrapper">
+              <h4 className="msg-item-title">标签：</h4>
+              <div className="msg-item-content">{ post.tags.map((item, idx) => (<Link to={prefixLink(`/archive/?t=${item}`)} onClick={this.handelTagClick} className="msg-sub-item" key={idx}>{item}</Link>)) }</div>
+            </div>
+
+          </div>
+
+          <div className="article-content" dangerouslySetInnerHTML={{ __html: post.body }} />
+
         </div>
-        <div dangerouslySetInnerHTML={{ __html: post.body }} />
-        <div className="tag">标签：{post.tags}</div>
-        <hr/>
-        <ReadNext post={post} pages={route.pages} />
+        <ReadNext className='article-next' post={post} pages={route.pages} />
       </div>
     )
   }

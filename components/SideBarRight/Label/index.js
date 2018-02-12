@@ -2,8 +2,6 @@ import React, { Component, PropTypes } from 'react';
 import { prefixLink } from 'gatsby-helpers'
 import { Link } from 'react-router'
 import uniq from 'lodash/uniq';
-
-
 import '../sidebar.scss'
 
 export default class Label extends Component {
@@ -30,7 +28,7 @@ export default class Label extends Component {
         <h2 className="slideTitle">所有分类</h2>
         <div className="slideLabelWrap">
           {blogTags.map((ca, i) => (
-            <Link className="slideLabel" to={prefixLink("/archive/")} key={i}>
+            <Link className="slideLabel" to={prefixLink(`/archive/?t=${ca}`)} key={i}>
                 {ca}
             </Link>
           ))}

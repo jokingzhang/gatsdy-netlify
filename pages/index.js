@@ -63,6 +63,11 @@ class BlogIndex extends Component {
     console.info(this.state);
   }
 
+  handelTagClick(e) {
+    // e.preventDefault();
+    // console.info("handelTagClick called", e);
+  }
+
   onPageChange(pageNum) {
     console.info("onPageChange===>", pageNum);
 
@@ -124,7 +129,7 @@ class BlogIndex extends Component {
 
                     <div className="msg-item-wrapper">
                       <h4 className="msg-item-title">标签：</h4>
-                      <div className="msg-item-content">{ page.data.tags.map((item, idx) => (<span className="msg-sub-item" key={idx}>{item}</span>)) }</div>
+                      <div className="msg-item-content">{ page.data.tags.map((item, idx) => (<Link to={prefixLink(`/archive/?t=${item}`)} onClick={this.handelTagClick} className="msg-sub-item" key={idx}>{item}</Link>)) }</div>
                     </div>
 
                   </div>
@@ -142,7 +147,6 @@ class BlogIndex extends Component {
                   <Link className="article-btn" to={prefixLink(page.path)}>
                     查看全文
                   </Link>
-
 
                 </li>
             ))}
