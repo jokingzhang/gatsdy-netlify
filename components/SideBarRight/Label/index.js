@@ -2,7 +2,8 @@ import React, { Component, PropTypes } from 'react';
 import { prefixLink } from 'gatsby-helpers'
 import { Link } from 'react-router'
 import uniq from 'lodash/uniq';
-import '../sidebar.scss'
+import classnames from 'classnames';
+import '../sidebar.scss';
 
 export default class Label extends Component {
 
@@ -12,6 +13,8 @@ export default class Label extends Component {
 
   render() {
     const isolationPaths = ['/about/', '/archive/', '/404.html', '/'];
+    const { className } = this.props;
+
     let blogTags = [];
     this.props.pages.map(page => {
 
@@ -24,7 +27,7 @@ export default class Label extends Component {
     blogTags = uniq(blogTags);
 
     return (
-      <div className="slideBlock">
+      <div className={classnames('slideBlock', className)}>
         <h2 className="slideTitle">所有分类</h2>
         <div className="slideLabelWrap">
           {blogTags.map((ca, i) => (

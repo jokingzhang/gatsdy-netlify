@@ -4,6 +4,7 @@ date: "2017-06-01T08:31:08+08:00"
 layout: post
 readNext: "/hi-folks/"
 path: "/homework/"
+type: article
 tags:
   - t6
   - t7

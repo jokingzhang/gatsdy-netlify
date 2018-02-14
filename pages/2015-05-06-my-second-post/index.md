@@ -5,6 +5,7 @@ readBefore: "/hello-world/"
 readNext: "/hi-folks/"
 path: "/my-second-post/"
 recommend: true
+type: article
 tags:
   - t2
   - t3

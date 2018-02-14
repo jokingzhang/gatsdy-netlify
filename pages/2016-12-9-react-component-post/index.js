@@ -27,5 +27,6 @@ exports.data = {
   date: "2016-12-09T12:40:32.169Z",
   desc: "Word to the javascript yos",
   tags: ['t3', 't4', 't5'],
+  type: "article",
   categories: ['c3']
 }

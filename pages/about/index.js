@@ -26,5 +26,6 @@ export default class About extends Component {
 
 exports.data = {
   title: "About page",
+  type: "only",
   date: "2017-05-09T09:03:02+08:00",
 }

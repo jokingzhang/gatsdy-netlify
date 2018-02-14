@@ -4,7 +4,12 @@
     margin-right: 20px;
     padding: 30px 20px;
     background: #fff;
+
+    @media (max-width: 768px) {
+      margin-right: 0;
+    }
   }
+
   .article-title {
     position: relative;
     display: inline-block;
@@ -31,11 +36,6 @@
     width: 160px;
     font-size: 16px;
     margin-bottom: 10px;
-    @media (max-width: 768px) {
-      position: relative;
-      margin: 0;
-      width: 100%;
-    }
     .msg-item-wrapper {}
     .msg-item-title {
       font-size: 12px;
@@ -96,7 +96,8 @@
   }
   .article-content {
     margin-top: 10px;
-    padding-left: 140px;
+    padding-left: 150px;
+    min-height: 120px;
     p {
       margin-bottom: 10px;
       font-size: 14px;
@@ -108,12 +109,5 @@
       max-height: 400px;
       max-width: 100%;
     }
-  }
-
-  .article-next {
-    margin-top: 20px;
-    margin-right: 20px;
-    padding: 30px 20px;
-    background: #fff;
   }
 }

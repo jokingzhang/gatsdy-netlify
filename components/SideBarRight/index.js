@@ -5,6 +5,8 @@ import classnames from 'classnames';
 import { config } from 'config';
 import SidebarRecommend from './Recommend';
 import SidebarLabel from './Label';
+import SidebarTab from './Tab';
+import SidebarAnchor from './AnchorList';
 
 import './sidebar.scss';
 
@@ -12,15 +14,35 @@ class Sidebar extends Component {
 
   constructor(props) {
     super(props);
+
+    this.state = {
+      isAnchorList: true
+    };
+
+    if (this.props.type != 'article') {
+      this.state.isAnchorList = false;
+    }
+
+    this.handelTabClick = this.handelTabClick.bind(this);
+  }
+
+  handelTabClick(value) {
+    this.setState({
+      isAnchorList: value
+    })
+    console.info("handelTabClick==>", this.state);
   }
 
   render() {
-    const { className } = this.props;
-
+    const { className, data, pages, page } = this.props;
+    console.info('sidebar:', this.props)
+    let sidebarType = data.type;
     return (
       <div className={classnames(className, 'siderBarRight')}>
-        <SidebarRecommend data={this.props.data} pages={this.props.pages} />
-        <SidebarLabel data={this.props.data} pages={this.props.pages} />
+        <SidebarTab className={this.state.isAnchorList ? 'hide' : ''} onTabClick={this.handelTabClick} isAnchorList={this.state.isAnchorList} />
+        <SidebarRecommend className={this.state.isAnchorList ? 'hide' : ''} data={data} pages={pages} />
+        <SidebarLabel className={this.state.isAnchorList ? 'hide' : ''} data={data} pages={pages} />
+        <SidebarAnchor className={this.state.isAnchorList ? '' : 'hide'} page={page} />
       </div>
     )
   }

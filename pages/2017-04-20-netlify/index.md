@@ -4,6 +4,7 @@ date: "2017-05-10T08:31:08+08:00"
 layout: post
 readNext: "/hi-folks/"
 path: "/netlify/"
+type: article
 tags:
   - t6
   - t7

@@ -23,7 +23,15 @@ class Template extends React.Component {
     const onlyContentPaths = ['/about/', '/archive/', '/404.html'];
 
     this.state = {};
-    this.state.isSidebar = onlyContentPaths.indexOf(location.pathname) >= 0 ? false : true;
+    this.state.sidebar = ''
+
+    if (location.pathname == '/') {
+      this.state.sidebar = 'normal';
+    } else if(onlyContentPaths.indexOf(location.pathname) >= 0) {
+      this.state.sidebar = 'hide';
+    } else {
+      this.state.sidebar = 'article';
+    }
 
     // console.info("constructor::this.props.location", this.props, this.state);
   }
@@ -37,6 +45,7 @@ class Template extends React.Component {
   }
 
   componentWillUpdate(nextProps) {
+    console.info('nextProps:', nextProps);
     let path = nextProps.location.pathname;
     if(path != this.props.location.pathname) {
     // console.info('componentWillUpdate called', path, this.props.location.pathname);
@@ -57,48 +66,17 @@ class Template extends React.Component {
     let onlyContentPaths = ['/about/', '/archive/', '/404.html'];
     if (onlyContentPaths.indexOf(path) >= 0) {
       this.setState({
-        isSidebar: false
+        sidebar: 'hide'
+      })
+    } else if(path == '/') {
+      this.setState({
+        sidebar: 'normal'
       })
     } else {
       this.setState({
-        isSidebar: true
+        sidebar: 'article'
       })
     }
-  }
-
-
-  renderBreadcrumb () {
-    var _breadList = []
-
-    if (this.props.location.pathname === "/") {
-      _breadList.push(<Breadcrumb.Item>首页</Breadcrumb.Item>);
-    } else if(this.props.location.pathname === "/about/") {
-      _breadList.push(<Breadcrumb.Item>关于</Breadcrumb.Item>);
-    } else if(this.props.location.pathname === "/archive/") {
-      _breadList.push(<Breadcrumb.Item>归档</Breadcrumb.Item>);
-    } else if(this.props.location.pathname === "/404.html"){
-
-    } else {
-      _breadList.push(
-        <Breadcrumb.Item>
-          <Link to={prefixLink("/")}>
-            首页
-          </Link>
-        </Breadcrumb.Item>);
-      _breadList.push(<Breadcrumb.Item>{this.props.routes[this.props.routes.length - 1].page.data.title}</Breadcrumb.Item>);
-    }
-
-    return (
-      <Breadcrumb style={{ margin: '12px 0' }}>
-        {
-          _breadList.map((_path) => {
-            return (
-              _path
-            )
-          })
-        }
-      </Breadcrumb>
-    )
   }
 
   render () {
@@ -116,9 +94,15 @@ class Template extends React.Component {
       path: '/archive/'
     }];
 
-    let isSidebarHide = this.state.isSidebar ? "" : "hide";
+    console.info('render called', this.props, this.state);
 
-    console.info('render called', this.props, this.state, isSidebarHide);
+    let page = route.pages.filter(page => {
+      if (page.path == location.pathname) {
+        return true;
+      } else {
+        return false;
+      }
+    })[0]
 
     return (
       <Container
@@ -126,9 +110,7 @@ class Template extends React.Component {
         <Header data={config} list={headerData} pathName={this.props.location.pathname} />
         <Layout className="blog-container c-layout">
 
-          <Sidebar className={classnames('c-sidebar-right', isSidebarHide)} data={config} pages={this.props.route.pages} />
-          {/* <Sidebar className={classnames('c-sidebar')} data={config} pages={this.props.route.pages} /> */}
-          {/* {this.renderBreadcrumb()} */}
+          <Sidebar className={classnames('c-sidebar-right', this.state.sidebar)} type={this.state.sidebar} data={config} page={page} pages={this.props.route.pages} />
           {this.props.children}
         </Layout>
         <BackTop className={classnames('c-back-top')} />

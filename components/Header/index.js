@@ -71,7 +71,7 @@ export default class componentHeader extends Component{
           </h1>
           <Menu
             mode="horizontal"
-            defaultSelectedKeys={[this.state.active]}
+            defaultSelectedKeys={[this.state.active.toString()]}
             className="headerMenu">
             {
               this.props.list.map((headerItem, idx) => (

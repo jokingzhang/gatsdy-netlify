@@ -9,6 +9,8 @@
     margin-top: 80px;
     margin-left: auto;
     margin-right: auto;
+    max-width: 1200px;
+
     @media (min-width: 769px) {
         width: 750px;
     }
@@ -46,10 +48,6 @@
       }
       @media (min-width: 1200px) {
           width: 280px;
-      }
-
-      &.hide {
-        display: none;
       }
 
     }
@@ -165,11 +163,16 @@
 }
 
 .nav-anchor {
-  position: absolute;
-  right: 0;
-  top: 40px;
-  width: 20%;
-  min-width: 280px;
+
+
+  .ant-anchor-link {
+    padding: 8px 8px 8px 18px;
+  }
+
+  .ant-anchor-link-title {
+    white-space: normal;
+    line-height: 1.4;
+  }
 }
 
 .ant-affix {

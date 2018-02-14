@@ -2,6 +2,7 @@ import React, { Component, PropTypes } from 'react';
 import { prefixLink } from 'gatsby-helpers';
 import { Link } from 'react-router';
 import uniq from 'lodash/uniq';
+import classnames from 'classnames';
 
 import '../sidebar.scss';
 
@@ -33,10 +34,12 @@ export default class Recommend extends Component {
       }
     })
 
+    const { className } = this.props;
+
     console.info('Recommend==>articals', articals);
 
     return (
-      <div className="slideBlock">
+      <div className={classnames('slideBlock', className)}>
         <h2 className="slideTitle">热门文章</h2>
         {articals.map((article, i) => (
           <Link className="slideArticle" to={prefixLink(article.path)} key={i}>
