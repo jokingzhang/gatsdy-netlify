@@ -17,7 +17,7 @@
     @media (min-width: 992px) {
         width: 970px;
     }
-    @media (min-width: 1200px) {
+    @media (min-width: 1400px) {
         width: 1170px;
     }
 
@@ -46,7 +46,7 @@
       @media (min-width: 992px) {
           width: 260px;
       }
-      @media (min-width: 1200px) {
+      @media (min-width: 1400px) {
           width: 280px;
       }
 
@@ -61,7 +61,7 @@
       @media (min-width: 992px) {
           padding-right: 260px;
       }
-      @media (min-width: 1200px) {
+      @media (min-width: 1400px) {
           padding-right: 280px;
       }
     }
@@ -162,18 +162,7 @@
   }
 }
 
-.nav-anchor {
 
-
-  .ant-anchor-link {
-    padding: 8px 8px 8px 18px;
-  }
-
-  .ant-anchor-link-title {
-    white-space: normal;
-    line-height: 1.4;
-  }
-}
 
 .ant-affix {
   .nav-anchor {

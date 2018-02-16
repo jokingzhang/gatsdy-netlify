@@ -33,6 +33,22 @@ class Sidebar extends Component {
     console.info("handelTabClick==>", this.state);
   }
 
+  componentWillUpdate(nextProps) {
+    let type = nextProps.type;
+    // console.info('Sidebar::::componentWillUpdate', this.props);
+    if (type != this.props.type) {
+      if (type != 'article') {
+        this.setState({
+          isAnchorList: false
+        });
+      } else {
+        this.setState({
+          isAnchorList: true
+        });
+      }
+    }
+  }
+
   render() {
     const { className, data, pages, page } = this.props;
     console.info('sidebar:', this.props)
@@ -42,7 +58,7 @@ class Sidebar extends Component {
         <SidebarTab className={this.state.isAnchorList ? 'hide' : ''} onTabClick={this.handelTabClick} isAnchorList={this.state.isAnchorList} />
         <SidebarRecommend className={this.state.isAnchorList ? 'hide' : ''} data={data} pages={pages} />
         <SidebarLabel className={this.state.isAnchorList ? 'hide' : ''} data={data} pages={pages} />
-        <SidebarAnchor className={this.state.isAnchorList ? '' : 'hide'} page={page} />
+        <SidebarAnchor className={this.state.isAnchorList ? '' : 'hide'} page={page} isAnchorList={this.state.isAnchorList} />
       </div>
     )
   }

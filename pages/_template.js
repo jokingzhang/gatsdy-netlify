@@ -1,11 +1,12 @@
 import React from 'react';
 import classnames from 'classnames';
 import { Link } from 'react-router';
-import { Breadcrumb, Layout, BackTop } from 'antd';
+import { Breadcrumb, Layout } from 'antd';
 import { Container } from 'react-responsive-grid';
 import { prefixLink } from 'gatsby-helpers';
 import { config } from 'config';
 import Header from '../components/Header';
+import BackTop from '../components/BackTop';
 import Footer from '../components/Footer';
 import Sidebar from '../components/SideBarRight/';
 import 'antd/lib/back-top/style';
@@ -33,7 +34,15 @@ class Template extends React.Component {
       this.state.sidebar = 'article';
     }
 
-    // console.info("constructor::this.props.location", this.props, this.state);
+    this.state.page = route.pages.filter(page => {
+      if (page.path == location.pathname) {
+        return true;
+      } else {
+        return false;
+      }
+    })[0]
+
+    console.info("constructor::this.props.location", this.props, this.state);
   }
 
   componentDidMount() {
@@ -45,11 +54,13 @@ class Template extends React.Component {
   }
 
   componentWillUpdate(nextProps) {
-    console.info('nextProps:', nextProps);
+    console.info('nextProps:', nextProps, this.props);
     let path = nextProps.location.pathname;
     if(path != this.props.location.pathname) {
-    // console.info('componentWillUpdate called', path, this.props.location.pathname);
+      console.info('template::componentWillUpdate called', path, this.props.location.pathname);
+      window.document.getElementById("container").scrollTop = 0;
       this.setIsSidebar(path);
+      this.setPage(path);
     }
   }
 
@@ -59,6 +70,19 @@ class Template extends React.Component {
 
   componentWillReceiveProps(nextProps) {
     // console.info('componentWillReceiveProps called', nextProps, this.props);
+  }
+
+  setPage (path) {
+    let _page = this.props.route.pages.filter(page => {
+      if (page.path == path) {
+        return true;
+      } else {
+        return false;
+      }
+    })[0]
+    this.setState({
+      page: _page
+    })
   }
 
   setIsSidebar (path) {
@@ -96,24 +120,20 @@ class Template extends React.Component {
 
     console.info('render called', this.props, this.state);
 
-    let page = route.pages.filter(page => {
-      if (page.path == location.pathname) {
-        return true;
-      } else {
-        return false;
-      }
-    })[0]
+
 
     return (
       <Container
-        className="container">
+        className="container"
+        id="container"
+        ref="container">
         <Header data={config} list={headerData} pathName={this.props.location.pathname} />
         <Layout className="blog-container c-layout">
 
-          <Sidebar className={classnames('c-sidebar-right', this.state.sidebar)} type={this.state.sidebar} data={config} page={page} pages={this.props.route.pages} />
+          <Sidebar className={classnames('c-sidebar-right', this.state.sidebar)} type={this.state.sidebar} data={config} page={this.state.page} pages={this.props.route.pages} />
           {this.props.children}
         </Layout>
-        <BackTop className={classnames('c-back-top')} />
+        <BackTop />
         <Footer />
       </Container>
     )

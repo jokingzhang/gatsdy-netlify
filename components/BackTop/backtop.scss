@@ -1,0 +1,41 @@
+.backTop {
+  position: fixed;
+  bottom: 40px;
+  right: 40px;
+  z-index: 9999;
+  width: 42px;
+  height: 42px;
+  text-align: center;
+  line-height: 44px;
+  background: rgba(64, 64, 64, .4);
+  color: #fff;
+  cursor: pointer;
+  border: 0;
+  border-radius: 50px;
+  text-decoration: none;
+  transition: all 0.3s cubic-bezier(0.645, 0.045, 0.355, 1);
+  opacity: 0;
+  @media (max-width: 768px) {
+    bottom: 30px;
+    right: 20px;
+  }
+
+  .icon {
+    font-size: 20px;
+  }
+
+  &:hover {
+    background-color: rgba(64, 64, 64, .6);
+    transition: all 0.3s cubic-bezier(0.645, 0.045, 0.355, 1);
+  }
+  &.show {
+    opacity: 1;
+  }
+  &.toggle-show {
+    display: block !important;
+  }
+  &.toggle-hide {
+    display: none !important;
+  }
+  .iconfont {}
+}
