@@ -53,9 +53,10 @@ class Sidebar extends Component {
     const { className, data, pages, page } = this.props;
     console.info('sidebar:', this.props)
     let sidebarType = data.type;
+    let isNotFound = this.props.type != 'article' || (this.props.type == 'article' && !this.props.page);
     return (
       <div className={classnames(className, 'siderBarRight')}>
-        <SidebarTab className={this.state.isAnchorList ? 'hide' : ''} onTabClick={this.handelTabClick} isAnchorList={this.state.isAnchorList} />
+        <SidebarTab className={isNotFound ? 'hide' : ''} onTabClick={this.handelTabClick} isAnchorList={this.state.isAnchorList} />
         <SidebarRecommend className={this.state.isAnchorList ? 'hide' : ''} data={data} pages={pages} />
         <SidebarLabel className={this.state.isAnchorList ? 'hide' : ''} data={data} pages={pages} />
         <SidebarAnchor className={this.state.isAnchorList ? '' : 'hide'} page={page} isAnchorList={this.state.isAnchorList} />

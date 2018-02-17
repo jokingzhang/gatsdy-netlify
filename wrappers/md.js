@@ -32,40 +32,52 @@ class MarkdownWrapper extends React.Component {
     const post = route.page.data;
     const fullPath = `https://jokingzhang.netlify.com/${window.location.pathname}`;
     console.info('post', post, config)
-    return (
-      <div className="markdown c-content page-article">
-        <Helmet
-          title={`${post.title} | ${config.blogTitle}`}
-        />
-        <div className="article-wrapper">
-          <h1 className="article-title">{post.title}</h1>
 
-          <div className="article-msg">
+    if (post.type && post.type == 'article') {
+      return (
+        <div className="markdown c-content page-article">
+          <Helmet
+            title={`${post.title} | ${config.blogTitle}`}
+          />
+          <div className="article-wrapper">
+            <h1 className="article-title">{post.title}</h1>
 
-            <div className="msg-item-wrapper">
-              <h4 className="msg-item-title">日期：</h4>
-              <div className="msg-item-content">{ moment(post.date).format('YYYY年MM月DD日') }</div>
+            <div className="article-msg">
+
+              <div className="msg-item-wrapper">
+                <h4 className="msg-item-title">日期：</h4>
+                <div className="msg-item-content">{ moment(post.date).format('YYYY年MM月DD日') }</div>
+              </div>
+
+              <div className="msg-item-wrapper">
+                <h4 className="msg-item-title">标签：</h4>
+                <div className="msg-item-content">{ post.tags.map((item, idx) => (<Link to={prefixLink(`/archive/?t=${item}`)} onClick={this.handelTagClick} className="msg-sub-item" key={idx}>{item}</Link>)) }</div>
+              </div>
+
             </div>
 
-            <div className="msg-item-wrapper">
-              <h4 className="msg-item-title">标签：</h4>
-              <div className="msg-item-content">{ post.tags.map((item, idx) => (<Link to={prefixLink(`/archive/?t=${item}`)} onClick={this.handelTagClick} className="msg-sub-item" key={idx}>{item}</Link>)) }</div>
-            </div>
-
+            <div className="article-content" dangerouslySetInnerHTML={{ __html: post.body }} />
           </div>
-
-          <div className="article-content" dangerouslySetInnerHTML={{ __html: post.body }} />
+          <ReactDisqusThread
+            className="article-wrapper article-disqus-wrapper"
+            shortname={config.shortname}
+            title={`${post.title} | ${config.blogTitle}`}
+            url={fullPath}
+            onNewComment={this.handleNewComment}
+          />
+          <ReadNext className='article-wrapper article-next' post={post} pages={route.pages} />
         </div>
-        <ReactDisqusThread
-          className="article-wrapper article-disqus-wrapper"
-          shortname={config.shortname}
-          title={`${post.title} | ${config.blogTitle}`}
-          url={fullPath}
-          onNewComment={this.handleNewComment}
-        />
-        <ReadNext className='article-wrapper article-next' post={post} pages={route.pages} />
-      </div>
-    )
+      )
+    } else {
+      return (
+        <div className="markdown">
+          <Helmet
+            title={`${post.title} | ${config.blogTitle}`}
+          />
+          <div className="c-404" dangerouslySetInnerHTML={{ __html: post.body }} />
+        </div>
+      )
+    }
   }
 }
 

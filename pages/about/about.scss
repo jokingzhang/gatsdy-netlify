@@ -1,0 +1,46 @@
+$font-color: #2d2d2d;
+
+.about-container {
+  padding-right: 0 !important;
+  min-height: auto !important;
+  min-height: initial !important;
+  padding-top: 40px !important;
+
+  .about-wrapper {
+    position: relative;
+    width: 100%;
+    padding: 30px 20px;
+    background: #fff;
+    color: $font-color;
+    margin-bottom: 20px;
+  }
+
+  .about-title {
+    position: relative;
+    width: 100%;
+    font-size: 18px;
+    font-weight: bold;
+    color: $font-color;
+    margin-bottom: 25px;
+    background: #fff;
+
+    &:after {
+      content: "";
+      position: absolute;
+      bottom: -8px;
+      left: 0;
+      height: 4px;
+      width: 40px;
+      background: #06ad9e;
+    }
+  }
+
+  .about-content {
+    font-size: 14px;
+    margin-bottom: 15px;
+  }
+
+  .about-content-line {
+    margin-bottom: 5px;
+  }
+}

@@ -12,6 +12,7 @@ export default class AnchorList extends Component {
 
   constructor(props) {
     super(props);
+
     this.state = {
       fixed : false
     };
@@ -104,6 +105,7 @@ export default class AnchorList extends Component {
 
     this.handleScroll = this.handleScroll.bind(this);
     this.handelLinkClick = this.handelLinkClick.bind(this);
+
   }
 
   componentDidMount() {
@@ -119,6 +121,7 @@ export default class AnchorList extends Component {
   }
 
   componentWillUpdate(nextProps) {
+
     let path = nextProps.page.path;
     console.info('AnchorList::::componentWillUpdate', nextProps, this.props);
     if (path != this.props.page.path) {
@@ -341,7 +344,11 @@ export default class AnchorList extends Component {
 
   render() {
 
-    const { className, isAnchorList } = this.props;
+    const { className, isAnchorList, page} = this.props;
+
+    if (!isAnchorList || !page) {
+      return null;
+    }
 
     return (
       <div className={classnames('slideBlock', className, this.state.fixed ? 'fixed' : '')}>

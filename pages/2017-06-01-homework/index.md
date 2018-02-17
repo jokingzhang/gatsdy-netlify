@@ -5,6 +5,7 @@ layout: post
 readNext: "/hi-folks/"
 path: "/homework/"
 type: article
+hide: hide
 tags:
   - t6
   - t7

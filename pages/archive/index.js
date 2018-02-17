@@ -79,7 +79,7 @@ class Archive extends React.Component {
     let visiblePages = list.filter((page, pageIdx) => {
       let _pageNum = Math.floor(pageIdx/maxPageSize);
       _pageNum+=1;
-      if (_pageNum === pageNumber) {
+      if (_pageNum === pageNumber && page.hide != 'hide' && page.data.hide != 'hide') {
         return true;
       } else {
         return false
@@ -162,7 +162,7 @@ class Archive extends React.Component {
     let visiblePages = list.filter((page, pageIdx) => {
       let _pageNum = Math.floor(pageIdx/maxPageSize);
       _pageNum+=1;
-      if (_pageNum === pageNumber) {
+      if (_pageNum === pageNumber && page.hide != 'hide' && page.data.hide != 'hide') {
         return true;
       } else {
         return false
@@ -220,9 +220,6 @@ class Archive extends React.Component {
 
     return (
       <div className="c-content archive-container">
-        <div className="container-title">
-          旧的回忆
-        </div>
         <Tags className={classnames('container-tags')} data={this.state.tags} />
         <List className={classnames('container-list')} data={this.state.list} />
         <div className="container-pagination">

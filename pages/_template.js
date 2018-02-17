@@ -127,7 +127,7 @@ class Template extends React.Component {
         className="container"
         id="container"
         ref="container">
-        <Header data={config} list={headerData} pathName={this.props.location.pathname} />
+        <Header data={config} type={this.state.sidebar} page={this.state.page} list={headerData} pathName={this.props.location.pathname} />
         <Layout className="blog-container c-layout">
 
           <Sidebar className={classnames('c-sidebar-right', this.state.sidebar)} type={this.state.sidebar} data={config} page={this.state.page} pages={this.props.route.pages} />

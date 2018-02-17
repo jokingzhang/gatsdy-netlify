@@ -20,8 +20,11 @@ export default class Tab extends Component {
 
   render() {
     console.info('Tab called');
+
+    const { className } = this.props;
+
     return (
-      <div className="slideTabBlock">
+      <div className={classnames('slideTabBlock', className)}>
         <div onClick={(e) => this.handleTabClick(false)} className={classnames("slideTabTitle", this.props.isAnchorList ? "" : "active")}>站点概览</div>
         <div onClick={(e) => this.handleTabClick(true)} className={classnames("slideTabTitle", this.props.isAnchorList ? "active" : "")}>文章目录</div>
       </div>

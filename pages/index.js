@@ -32,12 +32,13 @@ class BlogIndex extends Component {
     }
 
     let visiblePages = sortedPages.filter(page => {
-      if (isolationPaths.indexOf(page.path) < 0 && page.data && page.data.title) {
+      if (isolationPaths.indexOf(page.path) < 0 && page.data && page.data.title && page.hide != 'hide' && page.data.hide != 'hide') {
         return true;
       } else {
         return false;
       }
     })
+
     let totalPages = JSON.parse(JSON.stringify(visiblePages));
     let pageLength = visiblePages.length;
     visiblePages = visiblePages.filter((page, pageIdx) => {
@@ -80,12 +81,14 @@ class BlogIndex extends Component {
     let visiblePages = this.state.totalPages.filter((page, pageIdx) => {
       let _pageNum = Math.floor(pageIdx/maxPageSize);
       _pageNum+=1;
-      if (_pageNum === pageNumber) {
+      if (_pageNum === pageNumber && page.hide != 'hide' && page.data.hide != 'hide') {
         return true;
       } else {
         return false
       }
     })
+
+    window.document.getElementById("container").scrollTop = 0;
 
     var res = {
       totalPages: this.state.totalPages,
@@ -126,12 +129,12 @@ class BlogIndex extends Component {
                       <h4 className="msg-item-title">日期：</h4>
                       <div className="msg-item-content">{ moment(get(page, 'data.date')).format('YYYY年MM月DD日') }</div>
                     </div>
-
-                    <div className="msg-item-wrapper">
-                      <h4 className="msg-item-title">标签：</h4>
-                      <div className="msg-item-content">{ page.data.tags.map((item, idx) => (<Link to={prefixLink(`/archive/?t=${item}`)} onClick={this.handelTagClick} className="msg-sub-item" key={idx}>{item}</Link>)) }</div>
-                    </div>
-
+                    {!!(page.data.tags && page.data.tags.length > 0) && (
+                      <div className="msg-item-wrapper">
+                        <h4 className="msg-item-title">标签：</h4>
+                        <div className="msg-item-content">{ page.data.tags.map((item, idx) => (<Link to={prefixLink(`/archive/?t=${item}`)} onClick={this.handelTagClick} className="msg-sub-item" key={idx}>{item}</Link>)) }</div>
+                      </div>
+                    )}
                   </div>
 
                   {get(page, 'data.cover') ?
