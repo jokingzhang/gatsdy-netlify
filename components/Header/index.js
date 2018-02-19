@@ -44,9 +44,10 @@ export default class componentHeader extends Component{
     this.state.headerClass = headerClassName;
   }
 
-  componentWillUpdate(nextProps) {
+  componentWillReceiveProps(nextProps) {
     let pathName = nextProps.pathName;
-    // console.info('Sidebar::::componentWillUpdate', this.props);
+
+    console.info('Sidebar::::componentWillReceiveProps', this.props, nextProps);
     if (pathName != this.props.pathName) {
 
       let headerClassName = '';
@@ -69,6 +70,9 @@ export default class componentHeader extends Component{
         headerClass: headerClassName
       })
     }
+  }
+
+  componentWillUpdate() {
   }
 
   selectTab(path, key) {

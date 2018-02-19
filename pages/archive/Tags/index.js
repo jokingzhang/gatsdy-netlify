@@ -21,11 +21,15 @@ export default class Label extends Component {
       <div className={classnames(className, 'tagsWrap')}>
         <div className="tagTitle">旧的回忆</div>
         <div className="tagContent">
-          {data.map((ca, i) => (
-            <Link className={classnames('tag', ca.active ? 'active' : '')} to={prefixLink(`/archive/?t=${ca.tag}`)} key={i}>
-                {ca.title}
-            </Link>
-          ))}
+          {
+            !!data && data.length > 0 && data.map((ca, i) => {
+              return (
+                <Link className={classnames('tag', ca.active ? 'active' : '')} to={prefixLink(`/archive/?t=${ca.tag}`)} key={i}>
+                    {ca.title}
+                </Link>
+              )
+            })
+          }
         </div>
       </div>
     )

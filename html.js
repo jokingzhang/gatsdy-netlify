@@ -4,7 +4,6 @@ import { prefixLink } from 'gatsby-helpers'
 
 const BUILD_TIME = new Date().getTime()
 
-
 module.exports = React.createClass({
   displayName: 'HTML',
   propTypes: {

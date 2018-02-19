@@ -27,5 +27,6 @@ exports.data = {
   date: "2016-12-09T12:40:32.169Z",
   desc: "Word to the javascript yos",
   type: "article",
-  hide: "hide"
+  hide: "hide",
+  tags: ['React', 'lifecycle']
 }

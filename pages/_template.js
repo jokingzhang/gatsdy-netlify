@@ -45,31 +45,17 @@ class Template extends React.Component {
     console.info("constructor::this.props.location", this.props, this.state);
   }
 
-  componentDidMount() {
-    console.info('componentDidMount called');
-  }
-
-  componentWillUnmount() {
-    console.info('componentWillUnmount called');
-  }
-
-  componentWillUpdate(nextProps) {
+  componentWillReceiveProps(nextProps) {
+    console.info('componentWillReceiveProps called', nextProps, this.props);
+    const windowGlobal = typeof window !== 'undefined' && window;
     console.info('componentWillUpdate called ::nextProps:', nextProps, this.props);
     let path = nextProps.location.pathname;
     if(path != this.props.location.pathname) {
       console.info('template::componentWillUpdate called', path, this.props.location.pathname);
-      window.document.getElementById("container").scrollTop = 0;
+      windowGlobal.document.getElementById("container").scrollTop = 0;
       this.setIsSidebar(path);
       this.setPage(path);
     }
-  }
-
-  componentDidUpdate() {
-    console.info('componentDidUpdate called');
-  }
-
-  componentWillReceiveProps(nextProps) {
-    console.info('componentWillReceiveProps called', nextProps, this.props);
   }
 
   setPage (path) {

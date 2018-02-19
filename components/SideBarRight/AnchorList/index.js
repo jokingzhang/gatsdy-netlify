@@ -2,7 +2,6 @@ import React, { Component, PropTypes } from 'react';
 import { prefixLink } from 'gatsby-helpers';
 import { Link } from 'react-router';
 import { Anchor } from 'antd';
-import $ from 'jquery';
 import uniq from 'lodash/uniq';
 import classnames from 'classnames';
 import 'antd/lib/anchor/style';
@@ -17,11 +16,8 @@ export default class AnchorList extends Component {
       fixed : false
     };
 
-    let _node = $(this.props.page.data.body);
-    let _arr = _node.filter(":header");
-    let _nodeList = this.createTree(_arr);
     // debugger;
-    this.state.navList = _nodeList || [];
+    this.state.navList = [];
     console.info('Anchor', this.props, this.state)
 
     this.handleScroll = this.handleScroll.bind(this);
@@ -29,27 +25,61 @@ export default class AnchorList extends Component {
   }
 
   componentDidMount() {
+
+    const windowGlobal = typeof window !== 'undefined' && window;
+
+    // console.info('componentDidMount：this.props.page.data.body==>', _dom);
+
+    let _array = []
+    if (this.props.page.data.body) {
+      _array = this.props.page.data.body.match(/<h\d((\w|\s|=|-|\/|\"|<|>|\(|\)|[\u4e00-\u9fa5])+)<\/h\d>/ig);
+    }
+    let _domArray = []
+
+    _array.forEach((_hItem) => {
+      let _id = _hItem.match(/id=\"((\w|-)+)/)[1];
+      _domArray.push(windowGlobal.document.getElementById(_id));
+    })
+
+    console.info("_domArray==>", _domArray);
+    let _nodeList = this.createTree(_domArray);
+
+    this.setState({
+      navList: _nodeList || []
+    })
+
     if (this.props.isAnchorList) {
-      window.document.getElementById("container").addEventListener('scroll', this.handleScroll);
+      windowGlobal.document.getElementById("container").addEventListener('scroll', this.handleScroll);
     }
   }
 
   componentWillUnmount() {
+    const windowGlobal = typeof window !== 'undefined' && window;
     if (this.props.isAnchorList) {
-      window.document.getElementById("container").removeEventListener('scroll', this.handleScroll);
+      windowGlobal.document.getElementById("container").removeEventListener('scroll', this.handleScroll);
     }
   }
 
   componentDidUpdate(prevProps, prevState) {
+    const windowGlobal = typeof window !== 'undefined' && window;
     let path = prevProps.page.path;
     console.info('AnchorList::::componentWillReceiveProps', prevProps, this.props);
     if (path != this.props.page.path) {
 
-      window.document.getElementById("container").addEventListener('scroll', this.handleScroll);
+      windowGlobal.document.getElementById("container").addEventListener('scroll', this.handleScroll);
 
-      let _node = $(this.props.page.data.body);
-      let _arr = _node.filter(":header");
-      let _nodeList = this.createTree(_arr);
+      let _array = []
+      if (this.props.page.data.body) {
+        _array = this.props.page.data.body.match(/<h\d((\w|\s|=|-|\/|\"|<|>|\(|\)|[\u4e00-\u9fa5])+)<\/h\d>/ig);
+      }
+      let _domArray = []
+
+      _array.forEach((_hItem) => {
+        let _id = _hItem.match(/id=\"((\w|-)+)/)[1];
+        _domArray.push(windowGlobal.document.getElementById(_id));
+      })
+
+      let _nodeList = this.createTree(_domArray);
 
       this.setState({
         fixed : false,
@@ -63,7 +93,9 @@ export default class AnchorList extends Component {
   }
 
   handleScroll () {
-    let _top = window.document.getElementById("container").scrollTop;
+    const windowGlobal = typeof window !== 'undefined' && window;
+
+    let _top = windowGlobal.document.getElementById("container").scrollTop;
     // console.info("handleScroll", _top);
     if (_top >= 80) {
       this.setState({
@@ -82,13 +114,14 @@ export default class AnchorList extends Component {
   }
 
   _scrollTo(href) {
-    let targetElement = document.getElementById(href);
+    const windowGlobal = typeof window !== 'undefined' && window;
+    let targetElement = windowGlobal.document.getElementById(href);
     if (!targetElement) {
         return;
     }
     let eleOffsetTop = targetElement.offsetTop;
     console.info("_scrollTo==>", eleOffsetTop);
-    window.document.getElementById("container").scrollTo({top: eleOffsetTop})
+    windowGlobal.document.getElementById("container").scrollTo({top: eleOffsetTop})
   }
 
   createTree (data, result = [], _thisHeading = null) {
@@ -132,7 +165,7 @@ export default class AnchorList extends Component {
       <Anchor className="nav-anchor"
               offsetTop={80}>
         {
-          this.state.navList.map((rowItem) => {
+          this.state.navList.length > 0 && this.state.navList.map((rowItem) => {
             return (
               <Anchor.Link key={rowItem.dom.id} href={`#${rowItem.dom.id}`} >
                 <Link onClick={(e) => this.handelLinkClick(rowItem.dom.id, e)}> {rowItem.dom.innerText} </Link>

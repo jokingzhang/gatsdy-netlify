@@ -30,11 +30,15 @@ export default class Label extends Component {
       <div className={classnames('slideBlock', className)}>
         <h2 className="slideTitle">所有分类</h2>
         <div className="slideLabelWrap">
-          {blogTags.map((ca, i) => (
-            <Link className="slideLabel" to={prefixLink(`/archive/?t=${ca}`)} key={i}>
-                {ca}
-            </Link>
-          ))}
+          {
+            !!blogTags && blogTags.length > 0 && blogTags.map((ca, i) => {
+              return (
+                <Link className="slideLabel" to={prefixLink(`/archive/?t=${ca}`)} key={i}>
+                    {ca}
+                </Link>
+              )
+            })
+          }
         </div>
       </div>
     )

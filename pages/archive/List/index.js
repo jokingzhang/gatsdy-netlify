@@ -21,13 +21,17 @@ export default class List extends Component {
 
     return (
       <div className={classnames(className, 'listWrap')}>
-        {data.map((ca, i) => (
-          <Link className="article" to={prefixLink(ca.data.path)} key={i}>
-              <span className="circle"></span>
-              <span className="date">{moment(ca.data.date).format('YYYY年MM月DD日')}</span>
-              <span className="title">{ca.data.title}</span>
-          </Link>
-        ))}
+        {
+          !!data && data.length > 0 && data.map((ca, i) => {
+            return (
+              <Link className="article" to={prefixLink(ca.data.path)} key={i}>
+                  <span className="circle"></span>
+                  <span className="date">{moment(ca.data.date).format('YYYY年MM月DD日')}</span>
+                  <span className="title">{ca.data.title}</span>
+              </Link>
+            )
+          })
+        }
       </div>
     )
   }

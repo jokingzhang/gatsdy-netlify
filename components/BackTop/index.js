@@ -2,7 +2,6 @@ import React, { Component, PropTypes } from 'react';
 import { prefixLink } from 'gatsby-helpers'
 import { Link } from 'react-router'
 import uniq from 'lodash/uniq';
-import $ from 'jquery';
 import classnames from 'classnames';
 import './backtop.scss';
 
@@ -18,7 +17,8 @@ export default class BackTop extends Component {
   }
 
   handleScroll () {
-    let _top = window.document.getElementById("container").scrollTop;
+    const windowGlobal = typeof window !== 'undefined' && window;
+    let _top = windowGlobal.document.getElementById("container").scrollTop;
     // console.info("handleScroll", _top);
     if (_top >= 100) {
       this.setState({
@@ -32,17 +32,18 @@ export default class BackTop extends Component {
   }
 
   onBackTopClick() {
-    $('#container').animate({
-        scrollTop: 0
-    }, 700);
+    const windowGlobal = typeof window !== 'undefined' && window;
+    windowGlobal.document.getElementById("container").scrollTop = 0;
   }
 
   componentDidMount() {
-    window.document.getElementById("container").addEventListener('scroll', this.handleScroll);
+    const windowGlobal = typeof window !== 'undefined' && window;
+    windowGlobal.document.getElementById("container").addEventListener('scroll', this.handleScroll);
   }
 
   componentWillUnmount() {
-    window.document.getElementById("container").removeEventListener('scroll', this.handleScroll);
+    const windowGlobal = typeof window !== 'undefined' && window;
+    windowGlobal.document.getElementById("container").removeEventListener('scroll', this.handleScroll);
   }
 
   render() {

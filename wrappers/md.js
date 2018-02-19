@@ -1,6 +1,5 @@
 import React from 'react';
 import moment from 'moment';
-import $ from 'jquery';
 import { Link } from 'react-router';
 import { Anchor } from 'antd';
 import { prefixLink } from 'gatsby-helpers';
@@ -30,7 +29,7 @@ class MarkdownWrapper extends React.Component {
   render () {
     const { route } = this.props;
     const post = route.page.data;
-    const fullPath = `https://jokingzhang.netlify.com/${window.location.pathname}`;
+    const fullPath = `https://jokingzhang.netlify.com/${route.page.path}`;
     console.info('post', post, config)
 
     if (post.type && post.type == 'article') {
@@ -51,7 +50,15 @@ class MarkdownWrapper extends React.Component {
 
               <div className="msg-item-wrapper">
                 <h4 className="msg-item-title">标签：</h4>
-                <div className="msg-item-content">{ post.tags.map((item, idx) => (<Link to={prefixLink(`/archive/?t=${item}`)} onClick={this.handelTagClick} className="msg-sub-item" key={idx}>{item}</Link>)) }</div>
+                <div className="msg-item-content">
+                  {
+                    !!post.tags && post.tags.length > 0 && post.tags.map((item, idx) => {
+                      return (
+                        <Link to={prefixLink(`/archive/?t=${item}`)} onClick={this.handelTagClick} className="msg-sub-item" key={idx}>{item}</Link>
+                      )
+                    })
+                  }
+                </div>
               </div>
 
             </div>

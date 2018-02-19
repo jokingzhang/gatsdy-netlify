@@ -6,6 +6,9 @@ readNext: "/hi-folks/"
 path: "/md-test/"
 type: article
 hide: hide
+tags:
+  - React
+  - lifecycle
 ---
 
 ### 主要特性

@@ -1,5 +1,4 @@
 import React, { Component, PropTypes } from 'react';
-import $ from 'jquery'
 import moment from 'moment'
 import classnames from 'classnames';
 import { browserHistory, Link } from 'react-router';
@@ -79,6 +78,8 @@ class BlogIndex extends Component {
   }
 
   onPageChange(pageNum) {
+    const windowGlobal = typeof window !== 'undefined' && window;
+
     console.info("onPageChange===>", pageNum);
 
     browserHistory.push('/?page=' + pageNum);
@@ -97,7 +98,7 @@ class BlogIndex extends Component {
       }
     })
 
-    window.document.getElementById("container").scrollTop = 0;
+    windowGlobal.document.getElementById("container").scrollTop = 0;
 
     var res = {
       totalPages: this.state.totalPages,
@@ -154,7 +155,7 @@ class BlogIndex extends Component {
                   </div>) : ""}
 
                   <div className="article-desc">
-                    { get(page, 'data.desc') || $(get(page, 'data.body')).html() }
+                    { get(page, 'data.desc') }
                   </div>
                   <Link className="article-btn" to={prefixLink(page.path)}>
                     查看全文
