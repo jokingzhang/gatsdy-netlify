@@ -1,0 +1,58 @@
+.listWrap {
+  .article {
+    position: relative;
+    display: block;
+    font-size: 15px;
+    line-height: 1.8;
+    padding-left: 10px;
+    &:link {
+      text-decoration: none;
+    }
+    &:active {
+      text-decoration: none;
+    }
+    &:hover {
+      text-decoration: none;
+    }
+    &:visited {
+      text-decoration: none;
+    }
+    .date {
+      margin-left: 10px;
+      margin-right: 10px;
+      color: #8de0d8;
+    }
+    .circle {
+      position: absolute;
+      top: 9px;
+      left: 0;
+      display: inline-block;
+      background: #06ad9e;
+      width: 9px;
+      height: 9px;
+      border-radius: 50px;
+      &:after {
+        content: "";
+        position: absolute;
+        top: -4px;
+        left: -4px;
+        width: 17px;
+        height: 17px;
+        border: 2px solid #8de0d8;
+        border-radius: 50px;
+      }
+    }
+    .title {
+      display: inline-block;
+      color: #888;
+    }
+    &:hover {
+      .title {
+        color: #2d2d2d;
+      }
+      .date {
+        color: #06ad9e;
+      }
+    }
+  }
+}

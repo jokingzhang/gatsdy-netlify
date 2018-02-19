@@ -1,0 +1,46 @@
+.c-read-next {
+  display: flex;
+  justify-content: space-between;
+
+  .read-next-title {
+    position: relative;
+    display: inline-block;
+    margin-bottom: 20px;
+    font-size: 26px;
+    line-height: 1.2;
+    color: rgba(0, 0, 0, 0.6);
+    transition: color 0.2s;
+    padding-top: 0;
+    &:hover {
+      color: #616161;
+    }
+    &:after {
+      content: "";
+      position: absolute;
+      bottom: -8px;
+      left: 0;
+      height: 3px;
+      width: 40px;
+      background: #06ad9e;
+    }
+  }
+  .read-next-content {
+    display: block;
+    font-size: 14px;
+    color: #06ad9e;
+    transition: color 0.2s;
+
+
+    &:hover {
+      color: #06ccbc;
+    }
+  }
+
+  .read-next-wrapper-left {
+    flex: 0 1 auto;
+  }
+
+  .read-next-wrapper-right {
+    flex: 0 1 auto;
+  }
+}
