@@ -13,15 +13,17 @@ import './sidebar.scss';
 class Sidebar extends Component {
 
   constructor(props) {
+    // 服务端渲染不支持ID，就此作罢，现发布
+
     super(props);
 
     this.state = {
-      isAnchorList: true
+      isAnchorList: false
     };
 
-    if (this.props.type != 'article') {
-      this.state.isAnchorList = false;
-    }
+    // if (this.props.type != 'article') {
+    //   this.state.isAnchorList = false;
+    // }
 
     this.handelTabClick = this.handelTabClick.bind(this);
   }
@@ -34,26 +36,27 @@ class Sidebar extends Component {
   }
 
   componentWillReceiveProps(nextProps) {
-    let type = nextProps.type;
-    console.info('Sidebar::::componentWillUpdate', this.props);
-    if (type != this.props.type) {
-      if (type != 'article') {
-        this.setState({
-          isAnchorList: false
-        });
-      } else {
-        this.setState({
-          isAnchorList: true
-        });
-      }
-    }
+    // let type = nextProps.type;
+    // console.info('Sidebar::::componentWillUpdate', this.props);
+    // if (type != this.props.type) {
+    //   if (type != 'article') {
+    //     this.setState({
+    //       isAnchorList: false
+    //     });
+    //   } else {
+    //     this.setState({
+    //       isAnchorList: true
+    //     });
+    //   }
+    // }
   }
 
   render() {
     const { className, data, pages, page } = this.props;
 
     let sidebarType = data.type;
-    let isNotFound = this.props.type != 'article' || (this.props.type == 'article' && !this.props.page);
+    // let isNotFound = this.props.type != 'article' || (this.props.type == 'article' && !this.props.page);
+    let isNotFound = true;
     return (
       <div className={classnames(className, 'siderBarRight')}>
         <SidebarTab className={isNotFound ? 'hide' : ''} onTabClick={this.handelTabClick} isAnchorList={this.state.isAnchorList} />

@@ -26,12 +26,18 @@ class Template extends React.Component {
     this.state = {};
     this.state.sidebar = ''
 
+    // if (location.pathname == '/') {
+    //   this.state.sidebar = 'normal';
+    // } else if(onlyContentPaths.indexOf(location.pathname) >= 0) {
+    //   this.state.sidebar = 'hide';
+    // } else {
+    //   this.state.sidebar = 'article';
+    // }
+
     if (location.pathname == '/') {
       this.state.sidebar = 'normal';
-    } else if(onlyContentPaths.indexOf(location.pathname) >= 0) {
-      this.state.sidebar = 'hide';
     } else {
-      this.state.sidebar = 'article';
+      this.state.sidebar = 'hide';
     }
 
     this.state.page = route.pages.filter(page => {
@@ -74,17 +80,27 @@ class Template extends React.Component {
   setIsSidebar (path) {
     console.info('setIsSidebar called', path);
     let onlyContentPaths = ['/about/', '/archive/', '/404.html'];
-    if (onlyContentPaths.indexOf(path) >= 0) {
-      this.setState({
-        sidebar: 'hide'
-      })
-    } else if(path == '/') {
+    // if (onlyContentPaths.indexOf(path) >= 0) {
+    //   this.setState({
+    //     sidebar: 'hide'
+    //   })
+    // } else if(path == '/') {
+    //   this.setState({
+    //     sidebar: 'normal'
+    //   })
+    // } else {
+    //   this.setState({
+    //     sidebar: 'article'
+    //   })
+    // }
+
+    if(path == '/') {
       this.setState({
         sidebar: 'normal'
       })
     } else {
       this.setState({
-        sidebar: 'article'
+        sidebar: 'hide'
       })
     }
   }

@@ -107,25 +107,25 @@
     }
   }
 
-  &.not-found-theme {
-    background-color: #d0648a;
-    .headerMenu {
-      li {
-        &:hover {
-          border: none;
-        }
-        a {
-          color: #f2b3c9;
-          &:hover {
-            color: #fff;
-          }
-        }
-        &.active {
-          a {
-            color: #fff;
-          }
-        }
-      }
-    }
-  }
+  // &.not-found-theme {
+  //   background-color: #d0648a;
+  //   .headerMenu {
+  //     li {
+  //       &:hover {
+  //         border: none;
+  //       }
+  //       a {
+  //         color: #f2b3c9;
+  //         &:hover {
+  //           color: #fff;
+  //         }
+  //       }
+  //       &.active {
+  //         a {
+  //           color: #fff;
+  //         }
+  //       }
+  //     }
+  //   }
+  // }
 }
