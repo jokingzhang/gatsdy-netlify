@@ -1,6 +1,6 @@
 .container {
-  max-width: initial;
-  max-width: auto;
+  max-width: initial !important;
+  max-width: auto !important;
   overflow-x: hidden;
   overflow-y: auto;
   background-color: #f4f1f0;
