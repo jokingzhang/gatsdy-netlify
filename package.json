@@ -14,6 +14,8 @@
     "jquery": "^3.2.1",
     "lodash": "^4.17.2",
     "moment": "^2.18.1",
+    "echarts": "^4.0.2",
+    "echarts-for-react": "^2.0.6",
     "react-addons-shallow-compare": "^15.5.2",
     "react-dates": "^4.1.0",
     "react-disqus-thread": "^0.4.0",
