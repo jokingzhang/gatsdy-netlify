@@ -13,7 +13,7 @@ export default function componentFooter(props) {
   return (
     <Footer className="footerWrap">
       <div className="footerMsg">
-        © 2017 create by zhangbx
+        © 2018 create by zhangbx
       </div>
     </Footer>
   )

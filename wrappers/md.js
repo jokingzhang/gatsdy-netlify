@@ -12,7 +12,7 @@ import ReadNext from '../components/ReadNext';
 import ReactDisqusThread from "react-disqus-thread"
 
 import 'antd/lib/anchor/style';
-import '../scss/zenburn.scss'
+import '../scss/markdown.scss'
 import '../scss/container.scss'
 import './md.scss'
 

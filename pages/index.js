@@ -24,7 +24,16 @@ const isolationPaths = ['/about/', '/archive/', '/404.html', '/'];
 class BlogIndex extends Component {
   constructor(props) {
     super(props);
-    const sortedPages = sortBy(this.props.route.pages, 'data.date');
+    // const sortedPages = sortBy(this.props.route.pages, 'data.date');
+    const sortedPages = this.props.route.pages.sort((x, y) => {
+      if (x.data.date > y.data.date) {
+        return -1;
+      } else if (x.data.date < y.data.date) {
+        return 1;
+      } else {
+        return 0;
+      }
+    })
 
     let pageNumber = 1;
     if (this.props.location.query && this.props.location.query.page && /^[0-9]*[1-9][0-9]*$/.test(this.props.location.query.page)) {
@@ -81,7 +90,7 @@ class BlogIndex extends Component {
     let visiblePages = this.state.totalPages.filter((page, pageIdx) => {
       let _pageNum = Math.floor(pageIdx/maxPageSize);
       _pageNum+=1;
-      if (_pageNum === pageNumber && page.hide != 'hide' && page.data.hide != 'hide') {
+      if (_pageNum === pageNumber) {
         return true;
       } else {
         return false
@@ -145,7 +154,7 @@ class BlogIndex extends Component {
                   </div>) : ""}
 
                   <div className="article-desc">
-                    { $(get(page, 'data.body')).html() || get(page, 'data.desc')}
+                    { get(page, 'data.desc') || $(get(page, 'data.body')).html() }
                   </div>
                   <Link className="article-btn" to={prefixLink(page.path)}>
                     查看全文

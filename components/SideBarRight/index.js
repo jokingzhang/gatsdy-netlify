@@ -33,9 +33,9 @@ class Sidebar extends Component {
     console.info("handelTabClick==>", this.state);
   }
 
-  componentWillUpdate(nextProps) {
+  componentWillReceiveProps(nextProps) {
     let type = nextProps.type;
-    // console.info('Sidebar::::componentWillUpdate', this.props);
+    console.info('Sidebar::::componentWillUpdate', this.props);
     if (type != this.props.type) {
       if (type != 'article') {
         this.setState({
@@ -51,7 +51,7 @@ class Sidebar extends Component {
 
   render() {
     const { className, data, pages, page } = this.props;
-    console.info('sidebar:', this.props)
+
     let sidebarType = data.type;
     let isNotFound = this.props.type != 'article' || (this.props.type == 'article' && !this.props.page);
     return (

@@ -5,11 +5,7 @@ layout: post
 readNext: "/hi-folks/"
 path: "/md-test/"
 type: article
-tags:
-  - t6
-  - t7
-categories:
-  - c3
+hide: hide
 ---
 
 ### 主要特性

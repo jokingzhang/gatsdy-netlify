@@ -46,15 +46,15 @@ class Template extends React.Component {
   }
 
   componentDidMount() {
-    // console.info('componentDidMount called');
+    console.info('componentDidMount called');
   }
 
   componentWillUnmount() {
-    // console.info('componentWillUnmount called');
+    console.info('componentWillUnmount called');
   }
 
   componentWillUpdate(nextProps) {
-    console.info('nextProps:', nextProps, this.props);
+    console.info('componentWillUpdate called ::nextProps:', nextProps, this.props);
     let path = nextProps.location.pathname;
     if(path != this.props.location.pathname) {
       console.info('template::componentWillUpdate called', path, this.props.location.pathname);
@@ -65,11 +65,11 @@ class Template extends React.Component {
   }
 
   componentDidUpdate() {
-    // console.info('componentDidUpdate called');
+    console.info('componentDidUpdate called');
   }
 
   componentWillReceiveProps(nextProps) {
-    // console.info('componentWillReceiveProps called', nextProps, this.props);
+    console.info('componentWillReceiveProps called', nextProps, this.props);
   }
 
   setPage (path) {
@@ -120,8 +120,6 @@ class Template extends React.Component {
 
     console.info('render called', this.props, this.state);
 
-
-
     return (
       <Container
         className="container"
@@ -129,7 +127,6 @@ class Template extends React.Component {
         ref="container">
         <Header data={config} type={this.state.sidebar} page={this.state.page} list={headerData} pathName={this.props.location.pathname} />
         <Layout className="blog-container c-layout">
-
           <Sidebar className={classnames('c-sidebar-right', this.state.sidebar)} type={this.state.sidebar} data={config} page={this.state.page} pages={this.props.route.pages} />
           {this.props.children}
         </Layout>
