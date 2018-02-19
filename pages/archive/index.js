@@ -3,7 +3,6 @@ import { prefixLink } from 'gatsby-helpers';
 import { Link } from 'react-router';
 import { config } from 'config';
 import { Pagination } from 'antd';
-import classnames from 'classNames';
 import sortBy from 'lodash/sortBy';
 import map from 'lodash/map';
 import get from 'lodash/get';
@@ -220,8 +219,8 @@ class Archive extends React.Component {
 
     return (
       <div className="c-content archive-container">
-        <Tags className={classnames('container-tags')} data={this.state.tags} />
-        <List className={classnames('container-list')} data={this.state.list} />
+        <Tags className="container-tags" data={this.state.tags} />
+        <List className="container-list" data={this.state.list} />
         <div className="container-pagination">
           <Pagination
             className="pagination-wrapper"

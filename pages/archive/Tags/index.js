@@ -15,7 +15,7 @@ export default class Label extends Component {
 
   render() {
 
-    const { className,data } = this.props;
+    const { className, data } = this.props;
 
     return (
       <div className={classnames(className, 'tagsWrap')}>
