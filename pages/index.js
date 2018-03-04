@@ -9,7 +9,6 @@ import Helmet from "react-helmet"
 import { config } from 'config'
 import { Button, Breadcrumb, Layout, BackTop, Pagination } from 'antd';
 import include from 'underscore.string/include'
-import Bio from 'components/Bio'
 import 'antd/lib/pagination/style';
 import 'antd/lib/button/style';
 import '../scss/icon-font.scss';
