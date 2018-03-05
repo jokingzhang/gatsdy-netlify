@@ -28,5 +28,5 @@ exports.data = {
   desc: "Word to the javascript yos",
   type: "article",
   hide: "hide",
-  tags: ['React', 'lifecycle']
+  tags: ['React']
 }
