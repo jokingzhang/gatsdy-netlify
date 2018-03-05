@@ -93,7 +93,9 @@ var d = Array.prototype.map.call(a, function(v) {
 
 一个通用的破解法是将字符串转为数组，待处理完再将结果转回字符串：
 
+```
 var c = a.split("").reverse().join(); // "oof";
+```
 
 ## 数字
 
