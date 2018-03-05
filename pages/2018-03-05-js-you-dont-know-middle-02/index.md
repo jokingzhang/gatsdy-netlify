@@ -1,6 +1,6 @@
 ---
 title: 你不知道的JavaScript 中卷 阅读笔记2：值（value）
-desc: 数组（）、字符串（）、和数字（）是一个程序最基本的组成部分，但在JavaScript中，他们可谓让人喜忧参半。下面来了解一下，怎样合理的运用。
+desc: 数组（Array）、字符串（String）、和数字（Number）是一个程序最基本的组成部分，但在JavaScript中，他们可谓让人喜忧参半。下面来了解一下，怎样合理的运用。
 date: "2018-03-05T08:08:12+08:00"
 layout: post
 path: "/2018-03-05-js-you-dont-know-middle-02/"
