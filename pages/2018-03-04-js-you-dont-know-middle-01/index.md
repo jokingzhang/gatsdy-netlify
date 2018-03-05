@@ -1,12 +1,12 @@
 ---
-title: 你不知道的javascript 中卷 阅读笔记1：类型（type）
-desc: 在使用 React 创建组件的过程中，会调用一个 render 方法，以及触发若干生命周期的方法。接下来，这篇文章会讲一讲这些生命周期的方法是何时被执行的。理解组件的生命周期，当组件被创建或销毁时，可以执行某些操作。此外，当  props  和  state 发生改变的时候，你可以利用这些生命周期的钩子来改变你的组件。
+title: 你不知道的JavaScript 中卷 阅读笔记1：类型（type）
+desc: JavaScript 有七种内置类型：null、undefined、boolean、number、string、object 和 symbol，可以使用 typeof 运算符来查看。
 date: "2018-03-04T08:31:29+08:00"
 layout: post
 path: "/2018-03-04-js-you-dont-know-middle-01/"
 type: article
 tags:
-  - typeof
+  - js.typeof
   - js
 ---
 

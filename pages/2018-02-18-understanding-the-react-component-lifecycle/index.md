@@ -8,7 +8,7 @@ type: article
 recommend: true
 tags:
   - React
-  - lifecycle
+  - React.lifecycle
 ---
 
 ## 简介
