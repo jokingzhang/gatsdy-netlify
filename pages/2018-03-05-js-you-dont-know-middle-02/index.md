@@ -142,5 +142,69 @@ Number.isSafeInteger(3);                    // true
 Number.isSafeInteger(Math.pow(2, 53))     //false
 ```
 
+## 特殊的值
+
+`null` 是一个特殊的关键字，不是标识符，我们不能将其当做变量来使用，赋值。
+`undefined` 是一个标识符，可以被当做变量来使用，赋值。
+
+`void` 是一个内置的标识符，他的值为 `undefined`。
+
+```
+void 0;// undefined
+```
+
+判断`NaN`可以利用它不等于自身的特点。
+```
+if (!Number.isNaN) {
+  Number.isNaN = function(n) {
+    return n !== n;
+  }
+}
+```
+
+在`JavaScript`中，`Infinity` 代表无穷
+
+```
+var a = 1 / 0; // Infinity
+var b = -1 / 0; // -Infinity
+```
+
+0可以有负值：-0
+
+判断**-0**的方法：
+```
+function isNegZero(n) {
+  n = Number(n);
+  return (n === 0) && (1/n === -Infinity);
+}
+isNegZero(0) //false
+isNegZero(0/-3) //true
+```
+
+ES6 新增了一个方法：`Object.is(..)`来判断两个**值**是否绝对相等
+这是一个简单的`polyfill`
+```
+if (!Object.is) {
+  Object.is = function(v1, v2) {
+    //判断是否是-0
+    if (v1 === 0 && v2===0) {
+      return 1/v1 === 1/v2;
+    }
+
+    //判断是否是NaN
+    if (v1 !== v1) {
+      return v2 !== v2;
+    }
+
+    //其他情况
+    return v1 === v2;
+  }
+}
+```
+
+Array copy：`slice(..)` 会返回*数组*的潜副本。
+Object copy：`JSON.parse(JSON.stringify({a:1}))`;
+
+简单标量基本类型（null、undefined、字符串、数字、布尔、和symbol）的值可以通过**复制**来 赋值/传递，而复合值（对象，数组等）通过**引用**来 赋值/传递。JavaScript中的引用不能指向别的变量/引用，只能指向值。
 
 
