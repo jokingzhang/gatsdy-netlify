@@ -1,6 +1,7 @@
 ---
 title: 使用BEM的方式来写scss
 date: "2018-04-22T17:11:55+08:00"
+desc: BEM 是一种真正消除不确定性的命名方式，它使得结构样式更加清晰，我们有足够的信心做任何修改。
 layout: post
 readNext: "/2018-02-18-understanding-the-react-component-lifecycle/"
 path: "/2018-04-22-name-css-using-bem/"
